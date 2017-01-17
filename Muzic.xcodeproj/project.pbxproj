@@ -14,6 +14,7 @@
 		CB0EF1D81E2D9EB400BE33AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0EF1D61E2D9EB400BE33AD /* LaunchScreen.storyboard */; };
 		CB0EF1E31E2D9EB400BE33AD /* MuzicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1E21E2D9EB400BE33AD /* MuzicTests.swift */; };
 		CB0EF1EE1E2D9EB400BE33AD /* MuzicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1ED1E2D9EB400BE33AD /* MuzicUITests.swift */; };
+		CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		CB0EF1E91E2D9EB400BE33AD /* MuzicUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MuzicUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0EF1ED1E2D9EB400BE33AD /* MuzicUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuzicUITests.swift; sourceTree = "<group>"; };
 		CB0EF1EF1E2D9EB400BE33AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +99,12 @@
 		CB0EF1CC1E2D9EB400BE33AD /* Muzic */ = {
 			isa = PBXGroup;
 			children = (
-				CB0EF1CD1E2D9EB400BE33AD /* AppDelegate.swift */,
+				CB0EF2011E2E97A800BE33AD /* Resources */,
+				CB0EF2001E2E979F00BE33AD /* Utilities */,
+				CB0EF1FF1E2E979600BE33AD /* Controller */,
+				CB0EF1FE1E2E979000BE33AD /* Model */,
+				CB0EF1FD1E2E978900BE33AD /* View */,
 				CB0EF1CF1E2D9EB400BE33AD /* ViewController.swift */,
-				CB0EF1D11E2D9EB400BE33AD /* Main.storyboard */,
-				CB0EF1D41E2D9EB400BE33AD /* Assets.xcassets */,
-				CB0EF1D61E2D9EB400BE33AD /* LaunchScreen.storyboard */,
-				CB0EF1D91E2D9EB400BE33AD /* Info.plist */,
 			);
 			path = Muzic;
 			sourceTree = "<group>";
@@ -123,6 +125,47 @@
 				CB0EF1EF1E2D9EB400BE33AD /* Info.plist */,
 			);
 			path = MuzicUITests;
+			sourceTree = "<group>";
+		};
+		CB0EF1FD1E2E978900BE33AD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CB0EF1D11E2D9EB400BE33AD /* Main.storyboard */,
+				CB0EF1D61E2D9EB400BE33AD /* LaunchScreen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		CB0EF1FE1E2E979000BE33AD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		CB0EF1FF1E2E979600BE33AD /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		CB0EF2001E2E979F00BE33AD /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				CB0EF1CD1E2D9EB400BE33AD /* AppDelegate.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		CB0EF2011E2E97A800BE33AD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CB0EF1D41E2D9EB400BE33AD /* Assets.xcassets */,
+				CB0EF1D91E2D9EB400BE33AD /* Info.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +236,7 @@
 				TargetAttributes = {
 					CB0EF1C91E2D9EB400BE33AD = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = APPN2F7QS9;
 						ProvisioningStyle = Automatic;
 					};
 					CB0EF1DD1E2D9EB400BE33AD = {
@@ -260,6 +304,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB0EF1D01E2D9EB400BE33AD /* ViewController.swift in Sources */,
+				CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */,
 				CB0EF1CE1E2D9EB400BE33AD /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -412,6 +457,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = APPN2F7QS9;
 				INFOPLIST_FILE = Muzic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mivsolution.Muzic;
@@ -424,6 +470,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = APPN2F7QS9;
 				INFOPLIST_FILE = Muzic/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mivsolution.Muzic;
