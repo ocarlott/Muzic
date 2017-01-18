@@ -37,6 +37,12 @@ class SearchViewController: UIViewController {
         return imageView
     }()
     
+    let suggestBox: SuggestCollectionViewController = {
+        let layout = UICollectionViewFlowLayout()
+        var sb = SuggestCollectionViewController(collectionViewLayout: layout)
+        return sb
+    }()
+    
     func setupViews() {
         view.backgroundColor = .white
         UINavigationBar.appearance().barTintColor = .white
@@ -63,7 +69,9 @@ class SearchViewController: UIViewController {
     
     func suggest() {
         if let text = inputBox.text, text != "" {
-            background.backgroundColor = .yellow
+            SearchUtilities.getSuggestions(keyword: text, completed: { (suggestions) in
+                self.suggestBox.showSuggestionView(kws: suggestions)
+            })
         }
     }
 
