@@ -17,7 +17,7 @@ class TabBarViewController: UITabBarController {
         tabBar.tintColor = .white
         tabBar.clipsToBounds = true
         toolbarItems = []
-        let searchController = ViewController()
+        let searchController = SearchViewController()
         searchController.tabBarItem.title = "Search"
         searchController.tabBarItem.image = UIImage(named: "search")
         let musicController = ViewController()
