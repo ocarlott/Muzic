@@ -13,6 +13,8 @@ private let reuseIdentifier = "Cell"
 class SuggestCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var keywords: [String]?
+    
+    var searchVC: SearchViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +60,7 @@ class SuggestCollectionViewController: UICollectionViewController, UICollectionV
     
     func showSuggestionView(kws: [String]) {
         keywords = kws
+        collectionView?.alpha = 1
         collectionView?.reloadData()
         if let window = UIApplication.shared.keyWindow, let cView = collectionView {
             window.addSubview(cView)
@@ -66,36 +69,14 @@ class SuggestCollectionViewController: UICollectionViewController, UICollectionV
             }
         }
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
     
+    func hideSuggestionView() {
+        collectionView?.alpha = 0
     }
-    */
-
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let kw = keywords?[indexPath.item]
+        searchVC?.inputBox.text = kw
+        searchVC?.search()
+    }
 }

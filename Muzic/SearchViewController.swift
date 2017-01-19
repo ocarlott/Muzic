@@ -37,10 +37,18 @@ class SearchViewController: UIViewController {
         return imageView
     }()
     
-    let suggestBox: SuggestCollectionViewController = {
+    lazy var suggestBox: SuggestCollectionViewController = {
         let layout = UICollectionViewFlowLayout()
         var sb = SuggestCollectionViewController(collectionViewLayout: layout)
+        sb.searchVC = self
         return sb
+    }()
+    
+    lazy var resultBox: SearchResultVC = {
+        let layout = UICollectionViewFlowLayout()
+        var rb = SearchResultVC(collectionViewLayout: layout)
+        rb.searchVC = self
+        return rb
     }()
     
     func setupViews() {
@@ -60,35 +68,22 @@ class SearchViewController: UIViewController {
     }
     
     func search() {
+        inputBox.resignFirstResponder()
+        suggestBox.hideSuggestionView()
         if let text = inputBox.text, text != "" {
-            background.backgroundColor = .green
-        } else {
-            background.backgroundColor = .purple
+            ApiService.search(keyword: text, completed: { (videos) in
+                self.resultBox.showResultView(vds: videos)
+            })
         }
     }
     
     func suggest() {
+        resultBox.hideResultView()
         if let text = inputBox.text, text != "" {
-            SearchUtilities.getSuggestions(keyword: text, completed: { (suggestions) in
+            ApiService.getSuggestions(keyword: text, completed: { (suggestions) in
                 self.suggestBox.showSuggestionView(kws: suggestions)
             })
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
