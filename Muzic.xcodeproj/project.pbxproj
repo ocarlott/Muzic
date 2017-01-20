@@ -24,6 +24,8 @@
 		CB0EF2131E2F409C00BE33AD /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2121E2F409C00BE33AD /* SearchResultVC.swift */; };
 		CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2141E2F50DB00BE33AD /* Media.swift */; };
 		CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2161E2F52B300BE33AD /* VideoCell.swift */; };
+		CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */; };
+		CB0EF21B1E32BC0D00BE33AD /* GenericSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		CB0EF2121E2F409C00BE33AD /* SearchResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		CB0EF2141E2F50DB00BE33AD /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		CB0EF2161E2F52B300BE33AD /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
+		CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadVC.swift; sourceTree = "<group>"; };
+		CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericSearchVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +175,8 @@
 				CB0EF2021E2E98E800BE33AD /* SearchViewController.swift */,
 				CB0EF20A1E2F00DD00BE33AD /* SuggestCollectionViewController.swift */,
 				CB0EF2121E2F409C00BE33AD /* SearchResultVC.swift */,
+				CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */,
+				CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -330,8 +336,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB0EF21B1E32BC0D00BE33AD /* GenericSearchVC.swift in Sources */,
 				CB0EF1D01E2D9EB400BE33AD /* ViewController.swift in Sources */,
 				CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */,
+				CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */,
 				CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */,
 				CB0EF2051E2EAA2400BE33AD /* UIView+Extensions.swift in Sources */,
 				CB0EF20B1E2F00DD00BE33AD /* SuggestCollectionViewController.swift in Sources */,
@@ -588,6 +596,7 @@
 				CB0EF1F41E2D9EB400BE33AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB0EF1F51E2D9EB400BE33AD /* Build configuration list for PBXNativeTarget "MuzicTests" */ = {
 			isa = XCConfigurationList;
@@ -596,6 +605,7 @@
 				CB0EF1F71E2D9EB400BE33AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB0EF1F81E2D9EB400BE33AD /* Build configuration list for PBXNativeTarget "MuzicUITests" */ = {
 			isa = XCConfigurationList;
@@ -604,6 +614,7 @@
 				CB0EF1FA1E2D9EB400BE33AD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

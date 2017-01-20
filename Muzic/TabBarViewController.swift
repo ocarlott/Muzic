@@ -26,7 +26,7 @@ class TabBarViewController: UITabBarController {
         let videoController = ViewController()
         videoController.tabBarItem.title = "Video"
         videoController.tabBarItem.image = UIImage(named: "video")
-        let downloadController = ViewController()
+        let downloadController = DownloadVC()
         downloadController.tabBarItem.title = "Download"
         downloadController.tabBarItem.image = UIImage(named: "download")
         viewControllers = [searchController, musicController, videoController, downloadController]

@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         let tabController = TabBarViewController()
         window?.rootViewController = tabController
+        createFolder()
         return true
     }
 
@@ -45,6 +46,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
-
+    func createFolder() {
+        let docUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first as URL!
+        let musicUrl = docUrl?.appendingPathComponent("music", isDirectory: true)
+        let videoUrl = docUrl?.appendingPathComponent("video", isDirectory: true)
+        if !FileManager.default.fileExists(atPath: (musicUrl?.path)!, isDirectory: nil) {
+            do {
+                try FileManager.default.createDirectory(at: musicUrl!, withIntermediateDirectories: false, attributes: nil)
+            } catch let error {
+                print(error)
+            }
+        }
+        if !FileManager.default.fileExists(atPath: (videoUrl?.path)!, isDirectory: nil) {
+            do {
+                try FileManager.default.createDirectory(at: videoUrl!, withIntermediateDirectories: false, attributes: nil)
+            } catch let error {
+                print(error)
+            }
+        }
+        
+    }
 }
 

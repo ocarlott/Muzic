@@ -8,34 +8,12 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
-
-    let inputBox: UITextField = {
-        let tf = UITextField()
-        tf.borderStyle = .roundedRect
-        tf.placeholder = "Search"
-        tf.textAlignment = .center
-        tf.addTarget(nil, action: #selector(SearchViewController.search), for: .editingDidEndOnExit)
-        tf.addTarget(nil, action: #selector(SearchViewController.suggest), for: .editingChanged)
-        return tf
-    }()
+class SearchViewController: GenericSearchVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
-    
-    let background: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(white: 0, alpha: 0.3)
-        return view
-    }()
-    
-    let bgImage: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "bg"))
-        imageView.contentMode = .scaleAspectFill
-        return imageView
-    }()
     
     lazy var suggestBox: SuggestCollectionViewController = {
         let layout = UICollectionViewFlowLayout()
@@ -51,7 +29,7 @@ class SearchViewController: UIViewController {
         return rb
     }()
     
-    func setupViews() {
+    override func setupViews() {
         view.backgroundColor = .white
         UINavigationBar.appearance().barTintColor = .white
         UINavigationBar.appearance().tintColor = .white
@@ -59,6 +37,8 @@ class SearchViewController: UIViewController {
         view.addSubview(bgImage)
         view.addSubview(background)
         view.addSubview(inputBox)
+        inputBox.addTarget(nil, action: #selector(SearchViewController.search), for: .editingDidEndOnExit)
+        inputBox.addTarget(nil, action: #selector(SearchViewController.suggest), for: .editingChanged)
         view.addConstraintsWithFormatString(format: "V:|-20-[v0]|", views: bgImage)
         view.addConstraintsWithFormatString(format: "V:|-20-[v0]|", views: background)
         view.addConstraintsWithFormatString(format: "H:|[v0]|", views: bgImage)

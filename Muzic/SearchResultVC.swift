@@ -41,6 +41,7 @@ class SearchResultVC: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! VideoCell
         cell.setup(video: videos[indexPath.item])
+        cell.searchVC = searchVC
         return cell
     }
     
@@ -68,4 +69,5 @@ class SearchResultVC: UICollectionViewController, UICollectionViewDelegateFlowLa
     func hideResultView() {
         collectionView?.alpha = 0
     }
+
 }
