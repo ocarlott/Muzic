@@ -67,7 +67,8 @@ class SearchResultVC: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
 
     func hideResultView() {
-        collectionView?.alpha = 0
+//        collectionView?.alpha = 0
+        collectionView?.removeFromSuperview()
     }
 
 }

@@ -15,6 +15,8 @@ class SearchViewController: GenericSearchVC {
         setupViews()
     }
     
+    var downloadVC: DownloadVC?
+    
     lazy var suggestBox: SuggestCollectionViewController = {
         let layout = UICollectionViewFlowLayout()
         var sb = SuggestCollectionViewController(collectionViewLayout: layout)
@@ -50,6 +52,7 @@ class SearchViewController: GenericSearchVC {
     func search() {
         inputBox.resignFirstResponder()
         suggestBox.hideSuggestionView()
+//        suggestBox.dismiss(animated: false, completion: nil)
         if let text = inputBox.text, text != "" {
             ApiService.search(keyword: text, completed: { (videos) in
                 self.resultBox.showResultView(vds: videos)
@@ -59,6 +62,7 @@ class SearchViewController: GenericSearchVC {
     
     func suggest() {
         resultBox.hideResultView()
+//        resultBox.dismiss(animated: false, completion: nil)
         if let text = inputBox.text, text != "" {
             ApiService.getSuggestions(keyword: text, completed: { (suggestions) in
                 self.suggestBox.showSuggestionView(kws: suggestions)

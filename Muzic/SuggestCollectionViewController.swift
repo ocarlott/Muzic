@@ -71,7 +71,8 @@ class SuggestCollectionViewController: UICollectionViewController, UICollectionV
     }
     
     func hideSuggestionView() {
-        collectionView?.alpha = 0
+//        collectionView?.alpha = 0
+        collectionView?.removeFromSuperview()
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

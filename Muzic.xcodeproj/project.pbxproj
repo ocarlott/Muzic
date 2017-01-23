@@ -26,6 +26,9 @@
 		CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2161E2F52B300BE33AD /* VideoCell.swift */; };
 		CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */; };
 		CB0EF21B1E32BC0D00BE33AD /* GenericSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */; };
+		CB0EF21D1E32D66400BE33AD /* FileExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21C1E32D66400BE33AD /* FileExploreVC.swift */; };
+		CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21E1E331FB600BE33AD /* FileCell.swift */; };
+		CB0EF2211E35129300BE33AD /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2201E35129300BE33AD /* HeaderReusableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		CB0EF2161E2F52B300BE33AD /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadVC.swift; sourceTree = "<group>"; };
 		CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericSearchVC.swift; sourceTree = "<group>"; };
+		CB0EF21C1E32D66400BE33AD /* FileExploreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileExploreVC.swift; sourceTree = "<group>"; };
+		CB0EF21E1E331FB600BE33AD /* FileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
+		CB0EF2201E35129300BE33AD /* HeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +162,8 @@
 				CB0EF1D61E2D9EB400BE33AD /* LaunchScreen.storyboard */,
 				CB0EF20E1E2F084300BE33AD /* SuggestCell.swift */,
 				CB0EF2161E2F52B300BE33AD /* VideoCell.swift */,
+				CB0EF21E1E331FB600BE33AD /* FileCell.swift */,
+				CB0EF2201E35129300BE33AD /* HeaderReusableView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -177,6 +185,7 @@
 				CB0EF2121E2F409C00BE33AD /* SearchResultVC.swift */,
 				CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */,
 				CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */,
+				CB0EF21C1E32D66400BE33AD /* FileExploreVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -344,8 +353,11 @@
 				CB0EF2051E2EAA2400BE33AD /* UIView+Extensions.swift in Sources */,
 				CB0EF20B1E2F00DD00BE33AD /* SuggestCollectionViewController.swift in Sources */,
 				CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */,
+				CB0EF2211E35129300BE33AD /* HeaderReusableView.swift in Sources */,
 				CB0EF2031E2E98E800BE33AD /* SearchViewController.swift in Sources */,
+				CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */,
 				CB0EF20F1E2F084300BE33AD /* SuggestCell.swift in Sources */,
+				CB0EF21D1E32D66400BE33AD /* FileExploreVC.swift in Sources */,
 				CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */,
 				CB0EF1CE1E2D9EB400BE33AD /* AppDelegate.swift in Sources */,
 				CB0EF2111E2F0D0000BE33AD /* Constants.swift in Sources */,
