@@ -20,10 +20,14 @@ class TabBarViewController: UITabBarController {
         let searchController = SearchViewController()
         searchController.tabBarItem.title = "Search"
         searchController.tabBarItem.image = UIImage(named: "search")
-        let musicController = ViewController()
+        let musicDirVC = MusicVC()
+        musicDirVC.navigationItem.title = "Music"
+        let musicController = UINavigationController(rootViewController: musicDirVC)
         musicController.tabBarItem.title = "Music"
         musicController.tabBarItem.image = UIImage(named: "music")
-        let videoController = ViewController()
+        let videoDirVC = VideoVC()
+        videoDirVC.navigationItem.title = "Video"
+        let videoController = UINavigationController(rootViewController: videoDirVC)
         videoController.tabBarItem.title = "Video"
         videoController.tabBarItem.image = UIImage(named: "video")
         let downloadController = DownloadVC()

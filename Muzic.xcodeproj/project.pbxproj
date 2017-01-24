@@ -29,6 +29,10 @@
 		CB0EF21D1E32D66400BE33AD /* FileExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21C1E32D66400BE33AD /* FileExploreVC.swift */; };
 		CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21E1E331FB600BE33AD /* FileCell.swift */; };
 		CB0EF2211E35129300BE33AD /* HeaderReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2201E35129300BE33AD /* HeaderReusableView.swift */; };
+		CB0EF2251E3696A400BE33AD /* DirVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2241E3696A400BE33AD /* DirVC.swift */; };
+		CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */; };
+		CB0EF2291E36DDA600BE33AD /* MusicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2281E36DDA600BE33AD /* MusicVC.swift */; };
+		CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +81,10 @@
 		CB0EF21C1E32D66400BE33AD /* FileExploreVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileExploreVC.swift; sourceTree = "<group>"; };
 		CB0EF21E1E331FB600BE33AD /* FileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
 		CB0EF2201E35129300BE33AD /* HeaderReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderReusableView.swift; sourceTree = "<group>"; };
+		CB0EF2241E3696A400BE33AD /* DirVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirVC.swift; sourceTree = "<group>"; };
+		CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
+		CB0EF2281E36DDA600BE33AD /* MusicVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVC.swift; sourceTree = "<group>"; };
+		CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +172,7 @@
 				CB0EF2161E2F52B300BE33AD /* VideoCell.swift */,
 				CB0EF21E1E331FB600BE33AD /* FileCell.swift */,
 				CB0EF2201E35129300BE33AD /* HeaderReusableView.swift */,
+				CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -186,6 +195,9 @@
 				CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */,
 				CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */,
 				CB0EF21C1E32D66400BE33AD /* FileExploreVC.swift */,
+				CB0EF2241E3696A400BE33AD /* DirVC.swift */,
+				CB0EF2281E36DDA600BE33AD /* MusicVC.swift */,
+				CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -346,13 +358,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB0EF21B1E32BC0D00BE33AD /* GenericSearchVC.swift in Sources */,
+				CB0EF2251E3696A400BE33AD /* DirVC.swift in Sources */,
 				CB0EF1D01E2D9EB400BE33AD /* ViewController.swift in Sources */,
 				CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */,
 				CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */,
 				CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */,
 				CB0EF2051E2EAA2400BE33AD /* UIView+Extensions.swift in Sources */,
+				CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */,
 				CB0EF20B1E2F00DD00BE33AD /* SuggestCollectionViewController.swift in Sources */,
 				CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */,
+				CB0EF2291E36DDA600BE33AD /* MusicVC.swift in Sources */,
 				CB0EF2211E35129300BE33AD /* HeaderReusableView.swift in Sources */,
 				CB0EF2031E2E98E800BE33AD /* SearchViewController.swift in Sources */,
 				CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */,
@@ -360,6 +375,7 @@
 				CB0EF21D1E32D66400BE33AD /* FileExploreVC.swift in Sources */,
 				CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */,
 				CB0EF1CE1E2D9EB400BE33AD /* AppDelegate.swift in Sources */,
+				CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */,
 				CB0EF2111E2F0D0000BE33AD /* Constants.swift in Sources */,
 				CB0EF2131E2F409C00BE33AD /* SearchResultVC.swift in Sources */,
 			);
