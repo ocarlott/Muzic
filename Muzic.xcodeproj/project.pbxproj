@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		CB0EF1CE1E2D9EB400BE33AD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1CD1E2D9EB400BE33AD /* AppDelegate.swift */; };
-		CB0EF1D01E2D9EB400BE33AD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1CF1E2D9EB400BE33AD /* ViewController.swift */; };
-		CB0EF1D31E2D9EB400BE33AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0EF1D11E2D9EB400BE33AD /* Main.storyboard */; };
 		CB0EF1D51E2D9EB400BE33AD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB0EF1D41E2D9EB400BE33AD /* Assets.xcassets */; };
 		CB0EF1D81E2D9EB400BE33AD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB0EF1D61E2D9EB400BE33AD /* LaunchScreen.storyboard */; };
 		CB0EF1E31E2D9EB400BE33AD /* MuzicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1E21E2D9EB400BE33AD /* MuzicTests.swift */; };
@@ -33,6 +31,7 @@
 		CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */; };
 		CB0EF2291E36DDA600BE33AD /* MusicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2281E36DDA600BE33AD /* MusicVC.swift */; };
 		CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */; };
+		CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +54,6 @@
 /* Begin PBXFileReference section */
 		CB0EF1CA1E2D9EB400BE33AD /* Muzic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Muzic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB0EF1CD1E2D9EB400BE33AD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CB0EF1CF1E2D9EB400BE33AD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CB0EF1D21E2D9EB400BE33AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CB0EF1D41E2D9EB400BE33AD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB0EF1D71E2D9EB400BE33AD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB0EF1D91E2D9EB400BE33AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,6 +82,7 @@
 		CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		CB0EF2281E36DDA600BE33AD /* MusicVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVC.swift; sourceTree = "<group>"; };
 		CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoVC.swift; sourceTree = "<group>"; };
+		CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaListVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +138,6 @@
 				CB0EF1FF1E2E979600BE33AD /* Controller */,
 				CB0EF1FE1E2E979000BE33AD /* Model */,
 				CB0EF1FD1E2E978900BE33AD /* View */,
-				CB0EF1CF1E2D9EB400BE33AD /* ViewController.swift */,
 			);
 			path = Muzic;
 			sourceTree = "<group>";
@@ -166,7 +163,6 @@
 		CB0EF1FD1E2E978900BE33AD /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CB0EF1D11E2D9EB400BE33AD /* Main.storyboard */,
 				CB0EF1D61E2D9EB400BE33AD /* LaunchScreen.storyboard */,
 				CB0EF20E1E2F084300BE33AD /* SuggestCell.swift */,
 				CB0EF2161E2F52B300BE33AD /* VideoCell.swift */,
@@ -198,6 +194,7 @@
 				CB0EF2241E3696A400BE33AD /* DirVC.swift */,
 				CB0EF2281E36DDA600BE33AD /* MusicVC.swift */,
 				CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */,
+				CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -332,7 +329,6 @@
 			files = (
 				CB0EF1D81E2D9EB400BE33AD /* LaunchScreen.storyboard in Resources */,
 				CB0EF1D51E2D9EB400BE33AD /* Assets.xcassets in Resources */,
-				CB0EF1D31E2D9EB400BE33AD /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,9 +353,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */,
 				CB0EF21B1E32BC0D00BE33AD /* GenericSearchVC.swift in Sources */,
 				CB0EF2251E3696A400BE33AD /* DirVC.swift in Sources */,
-				CB0EF1D01E2D9EB400BE33AD /* ViewController.swift in Sources */,
 				CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */,
 				CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */,
 				CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */,
@@ -413,14 +409,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CB0EF1D11E2D9EB400BE33AD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CB0EF1D21E2D9EB400BE33AD /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CB0EF1D61E2D9EB400BE33AD /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -531,6 +519,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = APPN2F7QS9;
 				INFOPLIST_FILE = Muzic/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mivsolution.Muzic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -544,6 +533,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = APPN2F7QS9;
 				INFOPLIST_FILE = Muzic/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mivsolution.Muzic;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -28,6 +28,8 @@ class TabBarViewController: UITabBarController {
         let videoDirVC = VideoVC()
         videoDirVC.navigationItem.title = "Video"
         let videoController = UINavigationController(rootViewController: videoDirVC)
+        UINavigationBar.appearance().backgroundColor = .black
+        UINavigationBar.appearance().tintColor = .black
         videoController.tabBarItem.title = "Video"
         videoController.tabBarItem.image = UIImage(named: "video")
         let downloadController = DownloadVC()

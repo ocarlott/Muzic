@@ -47,19 +47,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func createFolder() {
-        if !FileManager.default.fileExists(atPath: (MUSIC_DIR_URL?.path)!, isDirectory: nil) {
+        if !FileManager.default.fileExists(atPath: MUSIC_DIR_URL.path, isDirectory: nil) {
             do {
-                try FileManager.default.createDirectory(at: MUSIC_DIR_URL!, withIntermediateDirectories: false, attributes: nil)
+                try FileManager.default.createDirectory(at: MUSIC_DIR_URL, withIntermediateDirectories: false, attributes: nil)
             } catch let error {
                 print(error)
             }
             do {
-                try FileManager.default.createDirectory(at: VIDEO_DIR_URL!, withIntermediateDirectories: false, attributes: nil)
+                try FileManager.default.createDirectory(at: VIDEO_DIR_URL, withIntermediateDirectories: false, attributes: nil)
             } catch let error {
                 print(error)
             }
             do {
-                try FileManager.default.createDirectory(at: PICTURE_DIR_URL!, withIntermediateDirectories: false, attributes: nil)
+                try FileManager.default.createDirectory(at: PICTURE_DIR_URL, withIntermediateDirectories: false, attributes: nil)
             } catch let error {
                 print(error)
             }

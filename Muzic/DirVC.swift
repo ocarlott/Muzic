@@ -17,6 +17,11 @@ class DirVC: UITableViewController {
     var dirs = [String]()
     
     var workingDir: URL?
+    
+    var mediaListVC: MediaListVC = {
+        let vc = MediaListVC()
+        return vc
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +116,12 @@ class DirVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        mediaListVC.workingDir = dirs[indexPath.item]
+        mediaListVC.navigationItem.title = mediaListVC.workingDir
+        navigationController?.pushViewController(mediaListVC, animated: true)
     }
 
     /*

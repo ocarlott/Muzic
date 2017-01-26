@@ -49,13 +49,13 @@ class PlaylistCell: UITableViewCell {
     
     func editDir() {
         var nameTF: UITextField?
-        let oldDir = MUSIC_DIR_URL?.appendingPathComponent(playlist.text!, isDirectory: true)
+        let oldDir = tableVC?.workingDir?.appendingPathComponent(playlist.text!, isDirectory: true)
         let myEditPopup = UIAlertController(title: "Change Playlist Name", message: "Enter new name for this playlist", preferredStyle: .alert)
         let changeAction = UIAlertAction(title: "Change", style: .default, handler: { (action) in
             if nameTF?.text != "" {
-                let newDir = MUSIC_DIR_URL?.appendingPathComponent((nameTF?.text)!, isDirectory: true)
+                let newDir = MUSIC_DIR_URL.appendingPathComponent((nameTF?.text)!, isDirectory: true)
                 do {
-                    try FileManager.default.moveItem(at: oldDir!, to: newDir!)
+                    try FileManager.default.moveItem(at: oldDir!, to: newDir)
                     self.tableVC?.searchDir()
                 } catch let error {
                     print(error)

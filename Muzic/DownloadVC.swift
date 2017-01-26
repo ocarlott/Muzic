@@ -28,15 +28,15 @@ class DownloadVC: GenericSearchVC {
     
     func searchFiles() {
         do {
-            let urls = try FileManager.default.contentsOfDirectory(at: DOCUMENT_DIR_URL!, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+            let urls = try FileManager.default.contentsOfDirectory(at: DOCUMENT_DIR_URL, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
             for rl in urls {
                 let media = Media()
                 if rl.path.contains(".mp3") {
-                    media.title = rl.path.replacingOccurrences(of: ".mp3", with: "").replacingOccurrences(of: (DOCUMENT_DIR_URL?.path)! + "/", with: "")
+                    media.title = rl.path.replacingOccurrences(of: ".mp3", with: "").replacingOccurrences(of: (DOCUMENT_DIR_URL.path) + "/", with: "")
                     media.isVideo = false
                     musics.append(media)
                 } else if rl.path.contains(".mp4") {
-                    media.title = rl.path.replacingOccurrences(of: ".mp4", with: "").replacingOccurrences(of: (DOCUMENT_DIR_URL?.path)! + "/", with: "")
+                    media.title = rl.path.replacingOccurrences(of: ".mp4", with: "").replacingOccurrences(of: (DOCUMENT_DIR_URL.path) + "/", with: "")
                     media.isVideo = true
                     videos.append(media)
                 }

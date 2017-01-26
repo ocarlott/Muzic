@@ -86,8 +86,8 @@ class ApiService {
         }
         media.title = media.title?.replacingOccurrences(of: "/", with: "-")
         let ext = video ? ".mp4" : ".mp3"
-        var destinationUrl = DOCUMENT_DIR_URL?.appendingPathComponent(media.title! + ext)
-        if !FileManager.default.fileExists(atPath: (destinationUrl?.path)!) {
+        var destinationUrl = DOCUMENT_DIR_URL.appendingPathComponent(media.title! + ext)
+        if !FileManager.default.fileExists(atPath: (destinationUrl.path)) {
             URLSession.shared.downloadTask(with: url!, completionHandler: { (dataUrl, response, error) in
                 if error != nil {
                     print(error ?? "There is a problem with api server")
@@ -96,9 +96,9 @@ class ApiService {
                         if let unwrappedDataUrl = dataUrl {
                             if let status = (response as? HTTPURLResponse)?.statusCode, status == 200 {
                                 do {
-                                    try FileManager.default.moveItem(at: unwrappedDataUrl, to: destinationUrl!)
-                                    destinationUrl = PICTURE_DIR_URL?.appendingPathComponent(media.title! + ".jpg")
-                                    if !FileManager.default.fileExists(atPath: (destinationUrl?.path)!) {
+                                    try FileManager.default.moveItem(at: unwrappedDataUrl, to: destinationUrl)
+                                    destinationUrl = PICTURE_DIR_URL.appendingPathComponent(media.title! + ".jpg")
+                                    if !FileManager.default.fileExists(atPath: (destinationUrl.path)) {
                                         let url = URL(string: (media.imageUrl)!)!
                                         URLSession.shared.downloadTask(with: url, completionHandler: { (data, response, error) in
                                             if error != nil {
@@ -107,7 +107,7 @@ class ApiService {
                                                 if let imageUrl = data {
                                                     if let status = (response as? HTTPURLResponse)?.statusCode, status == 200 {
                                                         do {
-                                                            try FileManager.default.moveItem(at: imageUrl, to: destinationUrl!)
+                                                            try FileManager.default.moveItem(at: imageUrl, to: destinationUrl)
                                                             completed()
                                                         } catch let writeError {
                                                             print(writeError)

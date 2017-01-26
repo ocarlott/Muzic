@@ -26,7 +26,7 @@ class FileCell: UICollectionViewCell {
     func setupViews(media: Media) {
         addSubview(title)
         addSubview(imageView)
-        imageView.image = UIImage(contentsOfFile: URL(fileURLWithPath: (PICTURE_DIR_URL?.path)!).appendingPathComponent(media.title! + ".jpg").path)
+        imageView.image = UIImage(contentsOfFile: URL(fileURLWithPath: (PICTURE_DIR_URL.path)).appendingPathComponent(media.title! + ".jpg").path)
         backgroundColor = .white
         title.text = media.title
         addConstraintsWithFormatString(format: "V:|[v0]|", views: title)
