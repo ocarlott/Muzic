@@ -63,6 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } catch let error {
                 print(error)
             }
+            do {
+                try FileManager.default.createDirectory(at: PLAYER_IMAGE_DIR_URL, withIntermediateDirectories: false, attributes: nil)
+            } catch let error {
+                print(error)
+            }
         }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class ApiService {
     static func getSuggestions(keyword: String, completed: @escaping ([String])->()) {
@@ -61,8 +62,9 @@ class ApiService {
                                     video.title = title
                                     video.channel = channel
                                     video.id = videoId
-                                    if let thumbnails = snippet["thumbnails"] as? [String: AnyObject], let medium = thumbnails["medium"] as? [String: AnyObject], let imageUrl = medium["url"] as? String {
+                                    if let thumbnails = snippet["thumbnails"] as? [String: AnyObject], let medium = thumbnails["medium"] as? [String: AnyObject], let imageUrl = medium["url"] as? String, let high = thumbnails["high"], let playerImageUrl = high["url"] as? String {
                                         video.imageUrl = imageUrl
+                                        video.playerImageUrl = playerImageUrl
                                     }
                                     videos.append(video)
                                 }
@@ -98,24 +100,23 @@ class ApiService {
                                 do {
                                     try FileManager.default.moveItem(at: unwrappedDataUrl, to: destinationUrl)
                                     destinationUrl = PICTURE_DIR_URL.appendingPathComponent(media.title! + ".jpg")
+                                    let destinationUrl1 = PLAYER_IMAGE_DIR_URL.appendingPathComponent(media.title! + ".jpg")
                                     if !FileManager.default.fileExists(atPath: (destinationUrl.path)) {
-                                        let url = URL(string: (media.imageUrl)!)!
-                                        URLSession.shared.downloadTask(with: url, completionHandler: { (data, response, error) in
-                                            if error != nil {
-                                                print(error ?? "Error with image url")
-                                            } else {
-                                                if let imageUrl = data {
-                                                    if let status = (response as? HTTPURLResponse)?.statusCode, status == 200 {
-                                                        do {
-                                                            try FileManager.default.moveItem(at: imageUrl, to: destinationUrl)
-                                                            completed()
-                                                        } catch let writeError {
-                                                            print(writeError)
-                                                        }
-                                                    }
-                                                }
+                                        ApiService.downloadPicture(urlString: media.imageUrl!, completed: { (imageUrl) in
+                                            do {
+                                                try FileManager.default.moveItem(at: imageUrl, to: destinationUrl)
+                                            } catch let error {
+                                                print(error)
                                             }
-                                        }).resume()
+                                        })
+                                        ApiService.downloadPicture(urlString: media.playerImageUrl!, completed: { (imageUrl) in
+                                            do {
+                                                try FileManager.default.moveItem(at: imageUrl, to: destinationUrl1)
+                                            } catch let error {
+                                                print(error)
+                                            }
+                                        })
+                                        completed()
                                     } else {
                                         print("File already exists")
                                     }
@@ -128,5 +129,34 @@ class ApiService {
                 }
             }).resume()
         }
+    }
+    
+    static func downloadPicture(urlString: String, completed: @escaping ((URL)->())) {
+        let url = URL(string: urlString)!
+        URLSession.shared.downloadTask(with: url, completionHandler: { (data, response, error) in
+            if error != nil {
+                print(error ?? "Error with image url")
+            } else {
+                if let imageUrl = data {
+                    if let status = (response as? HTTPURLResponse)?.statusCode, status == 200 {
+                        completed(imageUrl)
+                    }
+                }
+            }
+        }).resume()
+    }
+    
+    static func downloadPreviewImage(urlString: String, completed: @escaping ((UIImage)->())) {
+        let url = URL(string: urlString)!
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            if error != nil {
+                print(error ?? "Error with image url")
+            } else {
+                if let imageData = data {
+                    let img = UIImage(data: imageData)
+                    completed(img!)
+                }
+            }
+        }).resume()
     }
 }

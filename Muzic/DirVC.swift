@@ -18,6 +18,8 @@ class DirVC: UITableViewController {
     
     var workingDir: URL?
     
+    var playerController: PlayerController?
+    
     var mediaListVC: MediaListVC = {
         let vc = MediaListVC()
         return vc

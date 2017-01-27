@@ -32,6 +32,7 @@
 		CB0EF2291E36DDA600BE33AD /* MusicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2281E36DDA600BE33AD /* MusicVC.swift */; };
 		CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */; };
 		CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */; };
+		CB0EF22F1E39C0EE00BE33AD /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		CB0EF2281E36DDA600BE33AD /* MusicVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVC.swift; sourceTree = "<group>"; };
 		CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoVC.swift; sourceTree = "<group>"; };
 		CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaListVC.swift; sourceTree = "<group>"; };
+		CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 				CB0EF2281E36DDA600BE33AD /* MusicVC.swift */,
 				CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */,
 				CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */,
+				CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				CB0EF1CE1E2D9EB400BE33AD /* AppDelegate.swift in Sources */,
 				CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */,
 				CB0EF2111E2F0D0000BE33AD /* Constants.swift in Sources */,
+				CB0EF22F1E39C0EE00BE33AD /* PlayerController.swift in Sources */,
 				CB0EF2131E2F409C00BE33AD /* SearchResultVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,15 +17,19 @@ class TabBarViewController: UITabBarController {
         tabBar.tintColor = .white
         tabBar.clipsToBounds = true
         toolbarItems = []
+        let playerController = PlayerController()
         let searchController = SearchViewController()
+        searchController.playerController = playerController
         searchController.tabBarItem.title = "Search"
         searchController.tabBarItem.image = UIImage(named: "search")
         let musicDirVC = MusicVC()
+        musicDirVC.playerController = playerController
         musicDirVC.navigationItem.title = "Music"
         let musicController = UINavigationController(rootViewController: musicDirVC)
         musicController.tabBarItem.title = "Music"
         musicController.tabBarItem.image = UIImage(named: "music")
         let videoDirVC = VideoVC()
+        videoDirVC.playerController = playerController
         videoDirVC.navigationItem.title = "Video"
         let videoController = UINavigationController(rootViewController: videoDirVC)
         UINavigationBar.appearance().backgroundColor = .black
@@ -33,6 +37,7 @@ class TabBarViewController: UITabBarController {
         videoController.tabBarItem.title = "Video"
         videoController.tabBarItem.image = UIImage(named: "video")
         let downloadController = DownloadVC()
+        downloadController.playerController = playerController
         downloadController.tabBarItem.title = "Download"
         downloadController.tabBarItem.image = UIImage(named: "download")
         searchController.downloadVC = downloadController

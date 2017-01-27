@@ -17,6 +17,8 @@ class SearchViewController: GenericSearchVC {
     
     var downloadVC: DownloadVC?
     
+    var playerController: PlayerController?
+    
     lazy var suggestBox: SuggestCollectionViewController = {
         let layout = UICollectionViewFlowLayout()
         var sb = SuggestCollectionViewController(collectionViewLayout: layout)

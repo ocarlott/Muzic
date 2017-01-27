@@ -52,19 +52,11 @@ class VideoCell: UICollectionViewCell {
         channel.text = video.channel
         backgroundColor = .white
         if let image = video.imageUrl {
-            let url = URL(string: image)!
-            URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
-                if error != nil {
-                    print(error ?? "Error with image url")
-                } else {
-                    if let imageData = data {
-                        let img = UIImage(data: imageData)
-                        DispatchQueue.main.async {
-                            self.imageView.image = img
-                        }
-                    }
+            ApiService.downloadPreviewImage(urlString: image, completed: { (img) in
+                DispatchQueue.main.async {
+                    self.imageView.image = img
                 }
-            }).resume()
+            })
         }
         addConstraintsWithFormatString(format: "H:|[v0(192)]-10-[v1]-5-|", views: imageView, title)
         addConstraintsWithFormatString(format: "H:[v0(30)]|", views: downloadBtn)

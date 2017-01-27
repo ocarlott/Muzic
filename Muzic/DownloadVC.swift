@@ -14,15 +14,18 @@ class DownloadVC: GenericSearchVC {
     
     var videos = [Media]()
     
+    var playerController: PlayerController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchFiles()
         addCollectionView()
     }
     
-    let fileVC: FileExploreVC = {
+    lazy var fileVC: FileExploreVC = {
         let layout = UICollectionViewFlowLayout()
         let vc = FileExploreVC(collectionViewLayout: layout)
+        vc.downloadVC = self
         return vc
     }()
     
@@ -32,10 +35,12 @@ class DownloadVC: GenericSearchVC {
             for rl in urls {
                 let media = Media()
                 if rl.path.contains(".mp3") {
+                    media.path = rl.path
                     media.title = rl.path.replacingOccurrences(of: ".mp3", with: "").replacingOccurrences(of: (DOCUMENT_DIR_URL.path) + "/", with: "")
                     media.isVideo = false
                     musics.append(media)
                 } else if rl.path.contains(".mp4") {
+                    media.path = rl.path
                     media.title = rl.path.replacingOccurrences(of: ".mp4", with: "").replacingOccurrences(of: (DOCUMENT_DIR_URL.path) + "/", with: "")
                     media.isVideo = true
                     videos.append(media)

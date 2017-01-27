@@ -17,6 +17,8 @@ class FileExploreVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     var musics = [Media]()
     
     var videos = [Media]()
+    
+    var downloadVC: DownloadVC?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,11 +84,9 @@ class FileExploreVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            print(musics[indexPath.item].title!)
-        } else {
-            print(videos[indexPath.item].title!)
-        }
+        downloadVC?.playerController?.media = (indexPath.section == 0) ? musics[indexPath.item] : videos[indexPath.item]
+        downloadVC?.playerController?.setupPlayerView()
+        downloadVC?.present((downloadVC?.playerController)!, animated: true, completion: nil)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
