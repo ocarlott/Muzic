@@ -75,7 +75,7 @@ class VideoCell: UICollectionViewCell {
                     DispatchQueue.main.async {
                         self.searchVC?.downloadVC?.clearCache()
                         self.searchVC?.downloadVC?.searchFiles()
-                        self.searchVC?.downloadVC?.fileVC.collectionView?.reloadData()
+                        self.searchVC?.downloadVC?.fileVC.tableView?.reloadData()
                     }
                     self.downloadNotification(title: v.title! + ".mp4")
                 })
@@ -85,7 +85,7 @@ class VideoCell: UICollectionViewCell {
                     DispatchQueue.main.async {
                         self.searchVC?.downloadVC?.clearCache()
                         self.searchVC?.downloadVC?.searchFiles()
-                        self.searchVC?.downloadVC?.fileVC.collectionView?.reloadData()
+                        self.searchVC?.downloadVC?.fileVC.tableView?.reloadData()
                     }
                     self.downloadNotification(title: v.title! + ".mp3")
                 })

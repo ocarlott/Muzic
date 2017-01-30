@@ -14,6 +14,8 @@ class Media {
     var imageUrl: String?
     var isVideo: Bool?
     var channel: String?
-    var path: String?
+    var filePath: String?
+    var smallImgPath: String?
+    var largeImgPath: String?
     var playerImageUrl: String?
 }

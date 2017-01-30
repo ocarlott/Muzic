@@ -22,9 +22,8 @@ class DownloadVC: GenericSearchVC {
         addCollectionView()
     }
     
-    lazy var fileVC: FileExploreVC = {
-        let layout = UICollectionViewFlowLayout()
-        let vc = FileExploreVC(collectionViewLayout: layout)
+    lazy var fileVC: DownloadTableVC = {
+        let vc = DownloadTableVC()
         vc.downloadVC = self
         return vc
     }()
@@ -35,13 +34,17 @@ class DownloadVC: GenericSearchVC {
             for rl in urls {
                 let media = Media()
                 if rl.path.contains(".mp3") {
-                    media.path = rl.path
+                    media.filePath = rl.path
                     media.title = rl.path.replacingOccurrences(of: ".mp3", with: "").replacingOccurrences(of: (DOCUMENT_DIR_URL.path) + "/", with: "")
+                    media.smallImgPath = PICTURE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path
+                    media.largeImgPath = PLAYER_IMAGE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path
                     media.isVideo = false
                     musics.append(media)
                 } else if rl.path.contains(".mp4") {
-                    media.path = rl.path
+                    media.filePath = rl.path
                     media.title = rl.path.replacingOccurrences(of: ".mp4", with: "").replacingOccurrences(of: (DOCUMENT_DIR_URL.path) + "/", with: "")
+                    media.smallImgPath = PICTURE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path
+                    media.largeImgPath = PLAYER_IMAGE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path
                     media.isVideo = true
                     videos.append(media)
                 }
@@ -54,9 +57,9 @@ class DownloadVC: GenericSearchVC {
     }
     
     func addCollectionView() {
-        view.addSubview(fileVC.collectionView!)
-        view.addConstraintsWithFormatString(format: "V:|-70-[v0]|", views: fileVC.collectionView!)
-        view.addConstraintsWithFormatString(format: "H:|[v0]|", views: fileVC.collectionView!)
+        view.addSubview(fileVC.tableView!)
+        view.addConstraintsWithFormatString(format: "V:|-70-[v0]|", views: fileVC.tableView!)
+        view.addConstraintsWithFormatString(format: "H:|[v0]|", views: fileVC.tableView!)
     }
     
     func clearCache() {

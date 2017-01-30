@@ -27,7 +27,7 @@ class DirVC: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.tableFooterView = UIView()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -122,7 +122,6 @@ class DirVC: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         mediaListVC.workingDir = dirs[indexPath.item]
-        mediaListVC.navigationItem.title = mediaListVC.workingDir
         navigationController?.pushViewController(mediaListVC, animated: true)
     }
 

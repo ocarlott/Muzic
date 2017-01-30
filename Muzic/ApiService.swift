@@ -112,11 +112,11 @@ class ApiService {
                                         ApiService.downloadPicture(urlString: media.playerImageUrl!, completed: { (imageUrl) in
                                             do {
                                                 try FileManager.default.moveItem(at: imageUrl, to: destinationUrl1)
+                                                completed()
                                             } catch let error {
                                                 print(error)
                                             }
                                         })
-                                        completed()
                                     } else {
                                         print("File already exists")
                                     }

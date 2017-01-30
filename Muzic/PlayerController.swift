@@ -116,6 +116,7 @@ class PlayerController: UIViewController {
     var duration: Int!
     var isPlaying = false
     var media: Media?
+    var observer: Any?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,21 +183,22 @@ class PlayerController: UIViewController {
         label.bottomAnchor.constraint(equalTo: playerFrame.topAnchor, constant: -30).isActive = true
         label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         label.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -80).isActive = true
-        setupPlayerView()
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
     }
     
-    func setupPlayerView() {
-        let url = URL(fileURLWithPath: (media?.path)!)
+    override func viewWillAppear(_ animated: Bool) {
+        slider.setValue(0, animated: true)
+        let url = URL(fileURLWithPath: (media?.filePath)!)
         player = AVPlayer(url: url)
         player?.play()
         label.text = media?.title
-        imageView.image = UIImage(contentsOfFile: PLAYER_IMAGE_DIR_URL.appendingPathComponent((media?.title!)! + ".jpg").path)
+        imageView.image = UIImage(contentsOfFile: (media?.largeImgPath)!)
         let interval = CMTime(value: 1, timescale: 2)
-        player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
+        observer = player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
             if self.player?.status == .readyToPlay {
-                self.duration = Int(CMTimeGetSeconds((self.player?.currentItem?.duration)!))
+                //                self.duration = Int(CMTimeGetSeconds((self.player?.currentItem?.duration)!))
+                self.duration = Int(CMTimeGetSeconds((self.player?.currentItem?.asset.duration)!))
                 let seconds = Int(CMTimeGetSeconds(progressTime))
                 if seconds <= self.duration {
                     self.slider.setValue(Float(seconds)/Float(self.duration), animated: true)
@@ -209,6 +211,10 @@ class PlayerController: UIViewController {
         isPlaying = true
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        player?.removeTimeObserver(observer!)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

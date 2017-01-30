@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FileCell: UICollectionViewCell {
+class FileCell: UITableViewCell {
     
     let title: UILabel = {
         let lb = UILabel()
@@ -18,20 +18,21 @@ class FileCell: UICollectionViewCell {
         return lb
     }()
     
-    let imageView: UIImageView = {
+    let imgView: UIImageView = {
         let iv = UIImageView()
         return iv
     }()
     
+    
     func setupViews(media: Media) {
         addSubview(title)
-        addSubview(imageView)
-        imageView.image = UIImage(contentsOfFile: PICTURE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path)
+        addSubview(imgView)
+        imgView.image = UIImage(contentsOfFile: media.smallImgPath!)
         backgroundColor = .white
         title.text = media.title
         addConstraintsWithFormatString(format: "V:|[v0]|", views: title)
-        addConstraintsWithFormatString(format: "V:|[v0]|", views: imageView)
-        addConstraintsWithFormatString(format: "H:|[v0(160)]-10-[v1]|", views: imageView, title)
+        addConstraintsWithFormatString(format: "V:|[v0]|", views: imgView)
+        addConstraintsWithFormatString(format: "H:|[v0(160)]-10-[v1]|", views: imgView, title)
     }
     
 }

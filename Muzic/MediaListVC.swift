@@ -14,6 +14,9 @@ class MediaListVC: GenericSearchVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = workingDir
     }
 }
