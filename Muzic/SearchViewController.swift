@@ -8,12 +8,32 @@
 
 import UIKit
 
-class SearchViewController: GenericSearchVC {
+class SearchViewController: UIViewController {
+    
+    let inputBox: UITextField = {
+        let tf = UITextField()
+        tf.borderStyle = .roundedRect
+        tf.placeholder = "Search"
+        tf.textAlignment = .center
+        return tf
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
     }
+    
+    let background: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0, alpha: 0.3)
+        return view
+    }()
+    
+    let bgImage: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "bg"))
+        imageView.contentMode = .scaleAspectFill
+        return imageView
+    }()
     
     var downloadVC: DownloadVC?
     
@@ -33,7 +53,7 @@ class SearchViewController: GenericSearchVC {
         return rb
     }()
     
-    override func setupViews() {
+    func setupViews() {
         view.backgroundColor = .white
         UINavigationBar.appearance().barTintColor = .white
         UINavigationBar.appearance().tintColor = .white

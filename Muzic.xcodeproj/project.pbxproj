@@ -14,7 +14,7 @@
 		CB0EF1EE1E2D9EB400BE33AD /* MuzicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1ED1E2D9EB400BE33AD /* MuzicUITests.swift */; };
 		CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */; };
 		CB0EF2031E2E98E800BE33AD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2021E2E98E800BE33AD /* SearchViewController.swift */; };
-		CB0EF2051E2EAA2400BE33AD /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2041E2EAA2400BE33AD /* UIView+Extensions.swift */; };
+		CB0EF2051E2EAA2400BE33AD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2041E2EAA2400BE33AD /* Extensions.swift */; };
 		CB0EF20B1E2F00DD00BE33AD /* SuggestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF20A1E2F00DD00BE33AD /* SuggestCollectionViewController.swift */; };
 		CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF20C1E2F018D00BE33AD /* ApiService.swift */; };
 		CB0EF20F1E2F084300BE33AD /* SuggestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF20E1E2F084300BE33AD /* SuggestCell.swift */; };
@@ -23,7 +23,6 @@
 		CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2141E2F50DB00BE33AD /* Media.swift */; };
 		CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2161E2F52B300BE33AD /* VideoCell.swift */; };
 		CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */; };
-		CB0EF21B1E32BC0D00BE33AD /* GenericSearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */; };
 		CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21E1E331FB600BE33AD /* FileCell.swift */; };
 		CB0EF2251E3696A400BE33AD /* DirVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2241E3696A400BE33AD /* DirVC.swift */; };
 		CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */; };
@@ -31,7 +30,9 @@
 		CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */; };
 		CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */; };
 		CB0EF22F1E39C0EE00BE33AD /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */; };
-		CBAB4CC31E3F12C200455729 /* DownloadTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB4CC21E3F12C200455729 /* DownloadTableVC.swift */; };
+		CB4521F11E441A15004ED96B /* CustomAVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */; };
+		CBAB4CC51E3FAC6F00455729 /* PlaylistModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */; };
+		CBAB4CC91E4108CE00455729 /* CustomTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB4CC81E4108CE00455729 /* CustomTableVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +66,7 @@
 		CB0EF1EF1E2D9EB400BE33AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CB0EF2021E2E98E800BE33AD /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		CB0EF2041E2EAA2400BE33AD /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		CB0EF2041E2EAA2400BE33AD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CB0EF20A1E2F00DD00BE33AD /* SuggestCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestCollectionViewController.swift; sourceTree = "<group>"; };
 		CB0EF20C1E2F018D00BE33AD /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		CB0EF20E1E2F084300BE33AD /* SuggestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestCell.swift; sourceTree = "<group>"; };
@@ -74,7 +75,6 @@
 		CB0EF2141E2F50DB00BE33AD /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		CB0EF2161E2F52B300BE33AD /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadVC.swift; sourceTree = "<group>"; };
-		CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenericSearchVC.swift; sourceTree = "<group>"; };
 		CB0EF21E1E331FB600BE33AD /* FileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
 		CB0EF2241E3696A400BE33AD /* DirVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirVC.swift; sourceTree = "<group>"; };
 		CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
@@ -82,7 +82,9 @@
 		CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoVC.swift; sourceTree = "<group>"; };
 		CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaListVC.swift; sourceTree = "<group>"; };
 		CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
-		CBAB4CC21E3F12C200455729 /* DownloadTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadTableVC.swift; sourceTree = "<group>"; };
+		CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAVPlayerVC.swift; sourceTree = "<group>"; };
+		CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistModalVC.swift; sourceTree = "<group>"; };
+		CBAB4CC81E4108CE00455729 /* CustomTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,13 +190,14 @@
 				CB0EF20A1E2F00DD00BE33AD /* SuggestCollectionViewController.swift */,
 				CB0EF2121E2F409C00BE33AD /* SearchResultVC.swift */,
 				CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */,
-				CB0EF21A1E32BC0D00BE33AD /* GenericSearchVC.swift */,
 				CB0EF2241E3696A400BE33AD /* DirVC.swift */,
 				CB0EF2281E36DDA600BE33AD /* MusicVC.swift */,
 				CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */,
 				CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */,
 				CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */,
-				CBAB4CC21E3F12C200455729 /* DownloadTableVC.swift */,
+				CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */,
+				CBAB4CC81E4108CE00455729 /* CustomTableVC.swift */,
+				CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -203,7 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				CB0EF1CD1E2D9EB400BE33AD /* AppDelegate.swift */,
-				CB0EF2041E2EAA2400BE33AD /* UIView+Extensions.swift */,
+				CB0EF2041E2EAA2400BE33AD /* Extensions.swift */,
 				CB0EF20C1E2F018D00BE33AD /* ApiService.swift */,
 			);
 			name = Utilities;
@@ -289,6 +292,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = APPN2F7QS9;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					CB0EF1DD1E2D9EB400BE33AD = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -354,24 +362,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */,
-				CB0EF21B1E32BC0D00BE33AD /* GenericSearchVC.swift in Sources */,
 				CB0EF2251E3696A400BE33AD /* DirVC.swift in Sources */,
 				CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */,
+				CBAB4CC91E4108CE00455729 /* CustomTableVC.swift in Sources */,
 				CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */,
 				CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */,
-				CB0EF2051E2EAA2400BE33AD /* UIView+Extensions.swift in Sources */,
+				CB0EF2051E2EAA2400BE33AD /* Extensions.swift in Sources */,
 				CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */,
+				CB4521F11E441A15004ED96B /* CustomAVPlayerVC.swift in Sources */,
 				CB0EF20B1E2F00DD00BE33AD /* SuggestCollectionViewController.swift in Sources */,
 				CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */,
 				CB0EF2291E36DDA600BE33AD /* MusicVC.swift in Sources */,
 				CB0EF2031E2E98E800BE33AD /* SearchViewController.swift in Sources */,
 				CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */,
 				CB0EF20F1E2F084300BE33AD /* SuggestCell.swift in Sources */,
+				CBAB4CC51E3FAC6F00455729 /* PlaylistModalVC.swift in Sources */,
 				CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */,
 				CB0EF1CE1E2D9EB400BE33AD /* AppDelegate.swift in Sources */,
 				CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */,
 				CB0EF2111E2F0D0000BE33AD /* Constants.swift in Sources */,
-				CBAB4CC31E3F12C200455729 /* DownloadTableVC.swift in Sources */,
 				CB0EF22F1E39C0EE00BE33AD /* PlayerController.swift in Sources */,
 				CB0EF2131E2F409C00BE33AD /* SearchResultVC.swift in Sources */,
 			);

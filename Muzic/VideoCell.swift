@@ -73,9 +73,8 @@ class VideoCell: UICollectionViewCell {
             let videoAction = UIAlertAction(title: "Video", style: .default, handler: { (action) in
                 ApiService.downloadMedia(media: v, video: true, completed: {
                     DispatchQueue.main.async {
-                        self.searchVC?.downloadVC?.clearCache()
                         self.searchVC?.downloadVC?.searchFiles()
-                        self.searchVC?.downloadVC?.fileVC.tableView?.reloadData()
+                        self.searchVC?.downloadVC?.tableView?.reloadData()
                     }
                     self.downloadNotification(title: v.title! + ".mp4")
                 })
@@ -83,9 +82,8 @@ class VideoCell: UICollectionViewCell {
             let audioAction = UIAlertAction(title: "Audio Only", style: .default, handler: { (action) in
                 ApiService.downloadMedia(media: v, video: false, completed: {
                     DispatchQueue.main.async {
-                        self.searchVC?.downloadVC?.clearCache()
                         self.searchVC?.downloadVC?.searchFiles()
-                        self.searchVC?.downloadVC?.fileVC.tableView?.reloadData()
+                        self.searchVC?.downloadVC?.tableView?.reloadData()
                     }
                     self.downloadNotification(title: v.title! + ".mp3")
                 })
@@ -102,6 +100,5 @@ class VideoCell: UICollectionViewCell {
         let myAlertBox = UIAlertController(title: "Download Completed", message: title + " has been downloaded.", preferredStyle: .alert)
         myAlertBox.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         searchVC?.present(myAlertBox, animated: true, completion: nil)
-        
     }
 }

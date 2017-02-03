@@ -8,12 +8,19 @@
 
 import UIKit
 import AVFoundation
+import AVKit
 
 class PlayerController: UIViewController {
+    
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
 
     let playImage = UIImage(named: "play")
     
     let pauseImage = UIImage(named: "pause")
+    
+    var oldTitle: String?
     
     lazy var downBtn: UIButton = {
         let btn = UIButton()
@@ -101,7 +108,8 @@ class PlayerController: UIViewController {
         slider.maximumTrackTintColor = .gray
         slider.minimumTrackTintColor = .black
         slider.addTarget(self, action: #selector(slide), for: .valueChanged)
-        slider.setThumbImage(UIImage(named: "pig"), for: .normal)
+        let image = UIImage(named: "pig")
+        slider.setThumbImage(image!, for: .normal)
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
     }()
@@ -131,11 +139,11 @@ class PlayerController: UIViewController {
         view.addSubview(timeLeft)
         view.addSubview(timeElapsed)
         view.addSubview(label)
-        view.addConstraintsWithFormatString(format: "H:|-20-[v0(20)]", views: downBtn)
-        view.addConstraintsWithFormatString(format: "V:|-40-[v0(20)]", views: downBtn)
+        view.addConstraintsWithFormatString(format: "H:|-20-[v0(30)]", views: downBtn)
+        view.addConstraintsWithFormatString(format: "V:|-40-[v0(30)]", views: downBtn)
         
         playBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        playBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        playBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35).isActive = true
         playBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
         playBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
@@ -149,12 +157,12 @@ class PlayerController: UIViewController {
         prevBtn.widthAnchor.constraint(equalToConstant: 35).isActive = true
         prevBtn.heightAnchor.constraint(equalToConstant: 35).isActive = true
         
-        zoomBtn.bottomAnchor.constraint(equalTo: playBtn.topAnchor, constant: -40).isActive = true
+        zoomBtn.bottomAnchor.constraint(equalTo: playBtn.topAnchor, constant: -25).isActive = true
         zoomBtn.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -40).isActive = true
         zoomBtn.widthAnchor.constraint(equalToConstant: 20).isActive = true
         zoomBtn.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
-        typeBtn.bottomAnchor.constraint(equalTo: playBtn.topAnchor, constant: -40).isActive = true
+        typeBtn.bottomAnchor.constraint(equalTo: playBtn.topAnchor, constant: -25).isActive = true
         typeBtn.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 40).isActive = true
         typeBtn.widthAnchor.constraint(equalToConstant: 20).isActive = true
         typeBtn.heightAnchor.constraint(equalToConstant: 20).isActive = true
@@ -170,9 +178,9 @@ class PlayerController: UIViewController {
         timeLeft.leftAnchor.constraint(equalTo: slider.rightAnchor, constant: 10).isActive = true
         
         playerFrame.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
-        playerFrame.bottomAnchor.constraint(equalTo: slider.topAnchor, constant: -30).isActive = true
+        playerFrame.bottomAnchor.constraint(equalTo: slider.topAnchor, constant: -25).isActive = true
         if (media?.isVideo)! {
-            playerFrame.heightAnchor.constraint(equalToConstant: view.frame.width * 9 / 14).isActive = true
+            playerFrame.heightAnchor.constraint(equalToConstant: view.frame.width * 9 / 16).isActive = true
         } else {
             playerFrame.heightAnchor.constraint(equalToConstant: view.frame.width * 0.75).isActive = true
             playerFrame.addSubview(imageView)
@@ -180,20 +188,47 @@ class PlayerController: UIViewController {
             playerFrame.addConstraintsWithFormatString(format: "H:|[v0]|", views: imageView)
         }
         
-        label.bottomAnchor.constraint(equalTo: playerFrame.topAnchor, constant: -30).isActive = true
+        label.bottomAnchor.constraint(equalTo: playerFrame.topAnchor, constant: -20).isActive = true
         label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        label.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -80).isActive = true
+        label.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -60).isActive = true
         view.backgroundColor = .white
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        slider.setValue(0, animated: true)
-        let url = URL(fileURLWithPath: (media?.filePath)!)
-        player = AVPlayer(url: url)
-        player?.play()
-        label.text = media?.title
-        imageView.image = UIImage(contentsOfFile: (media?.largeImgPath)!)
+        if (media?.title != oldTitle) {
+            slider.setValue(0, animated: true)
+            let url = URL(fileURLWithPath: (media?.filePath)!)
+            if isPlaying {
+                player?.pause()
+            }
+            player = AVPlayer(url: url)
+            label.text = media?.title
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if (media?.title != oldTitle) {
+            do {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+                try AVAudioSession.sharedInstance().setActive(true)
+            }
+            catch let error {
+                print(error)
+            }
+            if (media?.isVideo)! {
+                imageView.removeFromSuperview()
+                let playerLayer = AVPlayerLayer(player: player)
+                playerLayer.frame = CGRect(x: 0, y: 0, width: playerFrame.frame.width, height: playerFrame.frame.height)
+                playerFrame.layer.addSublayer(playerLayer)
+            } else {
+                imageView.image = UIImage(contentsOfFile: (media?.largeImgPath)!)
+            }
+            playBtn.setImage(pauseImage, for: .normal)
+            player?.play()
+            isPlaying = true
+            oldTitle = media?.title
+        }
         let interval = CMTime(value: 1, timescale: 2)
         observer = player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
             if self.player?.status == .readyToPlay {
@@ -208,11 +243,11 @@ class PlayerController: UIViewController {
             }
             
         })
-        isPlaying = true
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         player?.removeTimeObserver(observer!)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -248,7 +283,18 @@ class PlayerController: UIViewController {
     }
     
     func toggleZoom() {
-        
+        let avPlayerVC = CustomAVPlayerVC()
+        let url = URL(fileURLWithPath: (media?.filePath)!)
+        let playerFull = AVPlayer(url: url)
+        player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
+        playBtn.setImage(playImage, for: .normal)
+        slider.setValue(0, animated: false)
+        player?.pause()
+        avPlayerVC.player = playerFull
+        present(avPlayerVC, animated: true, completion: {
+            playerFull.play()
+//            avPlayerVC.playerController = self
+        })
     }
     
     func slide() {
