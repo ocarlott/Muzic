@@ -8,7 +8,17 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+    
+    var keywords: [String]?
+    
+    var videos = [Media]()
+    
+    let suggestCellId = "suggestCell"
+    
+    let videoCellId = "videoId"
+    
+    var isDoneTyping = false
     
     let inputBox: UITextField = {
         let tf = UITextField()
@@ -20,6 +30,8 @@ class SearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView?.register(SuggestCell.self, forCellWithReuseIdentifier: suggestCellId)
+        collectionView?.register(VideoCell.self, forCellWithReuseIdentifier: videoCellId)
         setupViews()
     }
     
@@ -39,56 +51,110 @@ class SearchViewController: UIViewController {
     
     var playerController: PlayerController?
     
-    lazy var suggestBox: SuggestCollectionViewController = {
-        let layout = UICollectionViewFlowLayout()
-        var sb = SuggestCollectionViewController(collectionViewLayout: layout)
-        sb.searchVC = self
-        return sb
-    }()
-    
-    lazy var resultBox: SearchResultVC = {
-        let layout = UICollectionViewFlowLayout()
-        var rb = SearchResultVC(collectionViewLayout: layout)
-        rb.searchVC = self
-        return rb
-    }()
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     func setupViews() {
-        view.backgroundColor = .white
-        UINavigationBar.appearance().barTintColor = .white
-        UINavigationBar.appearance().tintColor = .white
         navigationItem.title = "Search"
         view.addSubview(bgImage)
         view.addSubview(background)
         view.addSubview(inputBox)
-        inputBox.addTarget(nil, action: #selector(SearchViewController.search), for: .editingDidEndOnExit)
-        inputBox.addTarget(nil, action: #selector(SearchViewController.suggest), for: .editingChanged)
+        view.sendSubview(toBack: background)
+        view.sendSubview(toBack: bgImage)
+        collectionView?.backgroundColor = UIColor(white: 0, alpha: 0)
+        collectionView?.clipsToBounds = true
+        inputBox.addTarget(nil, action: #selector(search), for: .editingDidEndOnExit)
+        inputBox.addTarget(nil, action: #selector(suggest), for: .editingChanged)
         view.addConstraintsWithFormatString(format: "V:|-20-[v0]|", views: bgImage)
         view.addConstraintsWithFormatString(format: "V:|-20-[v0]|", views: background)
         view.addConstraintsWithFormatString(format: "H:|[v0]|", views: bgImage)
         view.addConstraintsWithFormatString(format: "H:|[v0]|", views: background)
         view.addConstraintsWithFormatString(format: "V:|-30-[v0(30)]", views: inputBox)
         view.addConstraintsWithFormatString(format: "H:|-5-[v0]-5-|", views: inputBox)
+        collectionView?.frame = CGRect(x: 0, y: 70, width: view.frame.width, height: view.frame.height)
     }
     
     func search() {
         inputBox.resignFirstResponder()
-        suggestBox.hideSuggestionView()
-//        suggestBox.dismiss(animated: false, completion: nil)
         if let text = inputBox.text, text != "" {
             ApiService.search(keyword: text, completed: { (videos) in
-                self.resultBox.showResultView(vds: videos)
+                self.videos = videos
+                self.isDoneTyping = true
+                self.collectionView?.isScrollEnabled = true
+                self.collectionView?.reloadData()
             })
+        } else {
+            keywords = []
+            collectionView?.reloadData()
         }
     }
     
     func suggest() {
-        resultBox.hideResultView()
-//        resultBox.dismiss(animated: false, completion: nil)
         if let text = inputBox.text, text != "" {
             ApiService.getSuggestions(keyword: text, completed: { (suggestions) in
-                self.suggestBox.showSuggestionView(kws: suggestions)
+                self.keywords = suggestions
+                self.isDoneTyping = false
+                self.collectionView?.isScrollEnabled = false
+                self.collectionView?.reloadData()
             })
+        } else {
+            keywords = []
+            collectionView?.reloadData()
+        }
+    }
+    
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if isDoneTyping {
+            return videos.count
+        }
+        if let count = keywords?.count {
+            return count
+        }
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if isDoneTyping {
+            return CGSize(width: collectionView.frame.width, height: 108)
+        }
+        return CGSize(width: collectionView.frame.width, height: 25)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if isDoneTyping {
+            return 20
+        }
+        return 5
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if isDoneTyping {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: videoCellId, for: indexPath) as! VideoCell
+            cell.setup(video: videos[indexPath.item])
+            cell.searchVC = self
+            return cell
+        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: suggestCellId, for: indexPath) as! SuggestCell
+        if let suggestText = keywords?[indexPath.item] {
+            cell.setup(suggestText: suggestText)
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 0, bottom: 130, right: 0)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if !isDoneTyping {
+            let kw = keywords?[indexPath.item]
+            inputBox.text = kw
+            search()
         }
     }
 

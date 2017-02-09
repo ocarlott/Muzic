@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         let tabController = TabBarViewController()
         window?.rootViewController = tabController
+        UIApplication.shared.statusBarStyle = .lightContent
         createFolder()
         return true
     }

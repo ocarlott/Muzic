@@ -20,6 +20,10 @@ class PlayerController: UIViewController {
     
     let pauseImage = UIImage(named: "pause")
     
+    let shuffleType = UIImage(named: "shuffle")
+    
+    let repeatType = UIImage(named: "repeat")
+    
     var oldTitle: String?
     
     lazy var downBtn: UIButton = {
@@ -58,7 +62,7 @@ class PlayerController: UIViewController {
     lazy var typeBtn: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(toggleTypePlay), for: .touchUpInside)
-        btn.setImage(UIImage(named: "shuffle"), for: .normal)
+        btn.setImage(self.shuffleType, for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -67,6 +71,14 @@ class PlayerController: UIViewController {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(toggleZoom), for: .touchUpInside)
         btn.setImage(UIImage(named: "zoom"), for: .normal)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        return btn
+    }()
+    
+    lazy var timerBtn: UIButton = {
+        let btn = UIButton()
+        btn.addTarget(self, action: #selector(addTimer), for: .touchUpInside)
+        btn.setImage(UIImage(named: "timer"), for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -120,11 +132,30 @@ class PlayerController: UIViewController {
         return iv
     }()
     
+    lazy var timePicker: UIDatePicker = {
+        let picker = UIDatePicker()
+        picker.datePickerMode = .countDownTimer
+        picker.backgroundColor = .black
+        picker.setValue(UIColor.white, forKey: "textColor")
+        return picker
+    }()
+    
+    let doneBtn = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(setTimer))
+    
+    let cancelBtn = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelTimer))
+    
+    let flexspace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    
+    let toolbar = UIToolbar()
+    
     var player: AVPlayer?
     var duration: Int!
     var isPlaying = false
     var media: Media?
     var observer: Any?
+    var playerLayer: AVPlayerLayer!
+    let defaults = UserDefaults()
+    var isRepeat = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -134,11 +165,13 @@ class PlayerController: UIViewController {
         view.addSubview(prevBtn)
         view.addSubview(typeBtn)
         view.addSubview(zoomBtn)
+        view.addSubview(timerBtn)
         view.addSubview(playerFrame)
         view.addSubview(slider)
         view.addSubview(timeLeft)
         view.addSubview(timeElapsed)
         view.addSubview(label)
+        view.addSubview(timePicker)
         view.addConstraintsWithFormatString(format: "H:|-20-[v0(30)]", views: downBtn)
         view.addConstraintsWithFormatString(format: "V:|-40-[v0(30)]", views: downBtn)
         
@@ -167,6 +200,11 @@ class PlayerController: UIViewController {
         typeBtn.widthAnchor.constraint(equalToConstant: 20).isActive = true
         typeBtn.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
+        timerBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        timerBtn.bottomAnchor.constraint(equalTo: playBtn.topAnchor, constant: -25).isActive = true
+        timerBtn.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        timerBtn.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        
         slider.bottomAnchor.constraint(equalTo: zoomBtn.topAnchor, constant: -20).isActive = true
         slider.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -110).isActive = true
         slider.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -179,20 +217,34 @@ class PlayerController: UIViewController {
         
         playerFrame.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
         playerFrame.bottomAnchor.constraint(equalTo: slider.topAnchor, constant: -25).isActive = true
-        if (media?.isVideo)! {
-            playerFrame.heightAnchor.constraint(equalToConstant: view.frame.width * 9 / 16).isActive = true
-        } else {
-            playerFrame.heightAnchor.constraint(equalToConstant: view.frame.width * 0.75).isActive = true
-            playerFrame.addSubview(imageView)
-            playerFrame.addConstraintsWithFormatString(format: "V:|[v0]|", views: imageView)
-            playerFrame.addConstraintsWithFormatString(format: "H:|[v0]|", views: imageView)
-        }
+        playerFrame.heightAnchor.constraint(equalToConstant: view.frame.width * 9 / 16).isActive = true
+        playerFrame.addSubview(imageView)
+        playerFrame.clipsToBounds = true
+        playerFrame.addConstraintsWithFormatString(format: "V:|[v0]|", views: imageView)
+        playerFrame.addConstraintsWithFormatString(format: "H:|[v0]|", views: imageView)
         
         label.bottomAnchor.constraint(equalTo: playerFrame.topAnchor, constant: -20).isActive = true
         label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         label.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -60).isActive = true
+        
+        view.addConstraintsWithFormatString(format: "V:[v0(220)]|", views: timePicker)
+        view.addConstraintsWithFormatString(format: "H:|[v0]|", views: timePicker)
+        timePicker.isHidden = true
+        
+        doneBtn.tintColor = .white
+        cancelBtn.tintColor = .white
+        toolbar.setItems([cancelBtn, flexspace, doneBtn], animated: false)
+        view.addSubview(toolbar)
+        toolbar.barTintColor = .black
+        view.addConstraintsWithFormatString(format: "H:|[v0]|", views: toolbar)
+        view.addConstraintsWithFormatString(format: "V:[v0(35)]-220-|", views: toolbar)
+        toolbar.isHidden = true
         view.backgroundColor = .white
-        // Do any additional setup after loading the view.
+        
+        if defaults.bool(forKey: "isRepeat") {
+            typeBtn.setImage(self.repeatType, for: .normal)
+            isRepeat = true
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -208,51 +260,62 @@ class PlayerController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }
+        catch let error {
+            print(error)
+        }
         if (media?.title != oldTitle) {
-            do {
-                try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-                try AVAudioSession.sharedInstance().setActive(true)
-            }
-            catch let error {
-                print(error)
-            }
             if (media?.isVideo)! {
-                imageView.removeFromSuperview()
-                let playerLayer = AVPlayerLayer(player: player)
+                imageView.alpha = 0
+                playerLayer = AVPlayerLayer(player: player)
                 playerLayer.frame = CGRect(x: 0, y: 0, width: playerFrame.frame.width, height: playerFrame.frame.height)
                 playerFrame.layer.addSublayer(playerLayer)
             } else {
+                imageView.alpha = 1
+                if playerLayer != nil {
+                    playerLayer.isHidden = true
+                }
                 imageView.image = UIImage(contentsOfFile: (media?.largeImgPath)!)
             }
-            playBtn.setImage(pauseImage, for: .normal)
-            player?.play()
-            isPlaying = true
             oldTitle = media?.title
         }
+        play()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        player?.removeTimeObserver(observer!)
+        defaults.set(isRepeat, forKey: "isRepeat")
+    }
+
+    func play() {
+        playBtn.setImage(pauseImage, for: .normal)
+        player?.play()
+        isPlaying = true
         let interval = CMTime(value: 1, timescale: 2)
         observer = player?.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
             if self.player?.status == .readyToPlay {
-                //                self.duration = Int(CMTimeGetSeconds((self.player?.currentItem?.duration)!))
                 self.duration = Int(CMTimeGetSeconds((self.player?.currentItem?.asset.duration)!))
                 let seconds = Int(CMTimeGetSeconds(progressTime))
                 if seconds <= self.duration {
                     self.slider.setValue(Float(seconds)/Float(self.duration), animated: true)
                     self.timeElapsed.text = "\(String(format: "%02d", seconds/60)):\(String(format: "%02d", seconds % 60))"
                     self.timeLeft.text = "\(String(format: "%02d", (self.duration - seconds)/60)):\(String(format: "%02d", (self.duration - seconds)%60))"
+                    if seconds == self.duration {
+                        if self.isRepeat {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                                self.slider.setValue(0, animated: true)
+                                self.player?.seek(to: kCMTimeZero)
+                                self.player?.play()
+                            })
+                        }
+                    }
                 }
             }
             
         })
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        player?.removeTimeObserver(observer!)
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func hide() {
@@ -279,7 +342,12 @@ class PlayerController: UIViewController {
     }
     
     func toggleTypePlay() {
-        
+        if isRepeat {
+            typeBtn.setImage(self.shuffleType, for: .normal)
+        } else {
+            typeBtn.setImage(self.repeatType, for: .normal)
+        }
+        isRepeat = !isRepeat
     }
     
     func toggleZoom() {
@@ -293,26 +361,31 @@ class PlayerController: UIViewController {
         avPlayerVC.player = playerFull
         present(avPlayerVC, animated: true, completion: {
             playerFull.play()
-//            avPlayerVC.playerController = self
         })
     }
     
     func slide() {
         let value = Float64(slider.value) * Float64(duration)
         let seekTime = CMTime(value: Int64(value), timescale: 1)
-        player?.seek(to: seekTime, completionHandler: { (completedSeek) in
-            
+        player?.seek(to: seekTime)
+    }
+    
+    func addTimer() {
+        timePicker.isHidden = false
+        toolbar.isHidden = false
+    }
+    
+    func setTimer() {
+        timePicker.isHidden = true
+        toolbar.isHidden = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(Int(self.timePicker.countDownDuration)), execute: {
+            self.player?.pause()
         })
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func cancelTimer() {
+        timePicker.isHidden = true
+        toolbar.isHidden = true
     }
-    */
 
 }

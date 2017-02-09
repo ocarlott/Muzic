@@ -16,11 +16,26 @@ class DownloadVC: CustomTableVC {
     
     var workingDir: URL = DOCUMENT_DIR_URL
     
+    let headerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        return view
+    }()
+    
+    let label: UILabel = {
+        let lb = UILabel()
+        lb.text = "Downloads"
+        lb.textColor = .white
+        return lb
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tableView.register(FileCell.self, forCellReuseIdentifier: reuseIdentifier)
+        navigationItem.title = "Downloads"
         tableView.rowHeight = 90
-        tableView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
+        tableView.clipsToBounds = true
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
         tableView.tableFooterView = UIView()
         searchFiles()
     }
@@ -181,4 +196,5 @@ class DownloadVC: CustomTableVC {
         delete.backgroundColor = .red
         return [edit, move, delete]
     }
+
 }

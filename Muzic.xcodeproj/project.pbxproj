@@ -15,24 +15,20 @@
 		CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */; };
 		CB0EF2031E2E98E800BE33AD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2021E2E98E800BE33AD /* SearchViewController.swift */; };
 		CB0EF2051E2EAA2400BE33AD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2041E2EAA2400BE33AD /* Extensions.swift */; };
-		CB0EF20B1E2F00DD00BE33AD /* SuggestCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF20A1E2F00DD00BE33AD /* SuggestCollectionViewController.swift */; };
 		CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF20C1E2F018D00BE33AD /* ApiService.swift */; };
 		CB0EF20F1E2F084300BE33AD /* SuggestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF20E1E2F084300BE33AD /* SuggestCell.swift */; };
 		CB0EF2111E2F0D0000BE33AD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2101E2F0D0000BE33AD /* Constants.swift */; };
-		CB0EF2131E2F409C00BE33AD /* SearchResultVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2121E2F409C00BE33AD /* SearchResultVC.swift */; };
 		CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2141E2F50DB00BE33AD /* Media.swift */; };
 		CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2161E2F52B300BE33AD /* VideoCell.swift */; };
 		CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */; };
 		CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21E1E331FB600BE33AD /* FileCell.swift */; };
 		CB0EF2251E3696A400BE33AD /* DirVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2241E3696A400BE33AD /* DirVC.swift */; };
 		CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */; };
-		CB0EF2291E36DDA600BE33AD /* MusicVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2281E36DDA600BE33AD /* MusicVC.swift */; };
-		CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */; };
 		CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */; };
 		CB0EF22F1E39C0EE00BE33AD /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */; };
 		CB4521F11E441A15004ED96B /* CustomAVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */; };
+		CB64E9411E44631300328290 /* CustomTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64E9401E44631300328290 /* CustomTableVC.swift */; };
 		CBAB4CC51E3FAC6F00455729 /* PlaylistModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */; };
-		CBAB4CC91E4108CE00455729 /* CustomTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB4CC81E4108CE00455729 /* CustomTableVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,24 +63,20 @@
 		CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CB0EF2021E2E98E800BE33AD /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		CB0EF2041E2EAA2400BE33AD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		CB0EF20A1E2F00DD00BE33AD /* SuggestCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestCollectionViewController.swift; sourceTree = "<group>"; };
 		CB0EF20C1E2F018D00BE33AD /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		CB0EF20E1E2F084300BE33AD /* SuggestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestCell.swift; sourceTree = "<group>"; };
 		CB0EF2101E2F0D0000BE33AD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		CB0EF2121E2F409C00BE33AD /* SearchResultVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultVC.swift; sourceTree = "<group>"; };
 		CB0EF2141E2F50DB00BE33AD /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		CB0EF2161E2F52B300BE33AD /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadVC.swift; sourceTree = "<group>"; };
 		CB0EF21E1E331FB600BE33AD /* FileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
 		CB0EF2241E3696A400BE33AD /* DirVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirVC.swift; sourceTree = "<group>"; };
 		CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
-		CB0EF2281E36DDA600BE33AD /* MusicVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicVC.swift; sourceTree = "<group>"; };
-		CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoVC.swift; sourceTree = "<group>"; };
 		CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaListVC.swift; sourceTree = "<group>"; };
 		CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
 		CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAVPlayerVC.swift; sourceTree = "<group>"; };
+		CB64E9401E44631300328290 /* CustomTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableVC.swift; sourceTree = "<group>"; };
 		CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistModalVC.swift; sourceTree = "<group>"; };
-		CBAB4CC81E4108CE00455729 /* CustomTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,17 +179,13 @@
 			children = (
 				CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */,
 				CB0EF2021E2E98E800BE33AD /* SearchViewController.swift */,
-				CB0EF20A1E2F00DD00BE33AD /* SuggestCollectionViewController.swift */,
-				CB0EF2121E2F409C00BE33AD /* SearchResultVC.swift */,
 				CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */,
 				CB0EF2241E3696A400BE33AD /* DirVC.swift */,
-				CB0EF2281E36DDA600BE33AD /* MusicVC.swift */,
-				CB0EF22A1E36DF4B00BE33AD /* VideoVC.swift */,
 				CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */,
 				CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */,
 				CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */,
-				CBAB4CC81E4108CE00455729 /* CustomTableVC.swift */,
 				CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */,
+				CB64E9401E44631300328290 /* CustomTableVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -290,7 +278,7 @@
 				TargetAttributes = {
 					CB0EF1C91E2D9EB400BE33AD = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = APPN2F7QS9;
+						DevelopmentTeam = XP43SN7FM7;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -364,25 +352,21 @@
 				CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */,
 				CB0EF2251E3696A400BE33AD /* DirVC.swift in Sources */,
 				CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */,
-				CBAB4CC91E4108CE00455729 /* CustomTableVC.swift in Sources */,
 				CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */,
 				CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */,
 				CB0EF2051E2EAA2400BE33AD /* Extensions.swift in Sources */,
+				CB64E9411E44631300328290 /* CustomTableVC.swift in Sources */,
 				CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */,
 				CB4521F11E441A15004ED96B /* CustomAVPlayerVC.swift in Sources */,
-				CB0EF20B1E2F00DD00BE33AD /* SuggestCollectionViewController.swift in Sources */,
 				CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */,
-				CB0EF2291E36DDA600BE33AD /* MusicVC.swift in Sources */,
 				CB0EF2031E2E98E800BE33AD /* SearchViewController.swift in Sources */,
 				CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */,
 				CB0EF20F1E2F084300BE33AD /* SuggestCell.swift in Sources */,
 				CBAB4CC51E3FAC6F00455729 /* PlaylistModalVC.swift in Sources */,
 				CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */,
 				CB0EF1CE1E2D9EB400BE33AD /* AppDelegate.swift in Sources */,
-				CB0EF22B1E36DF4B00BE33AD /* VideoVC.swift in Sources */,
 				CB0EF2111E2F0D0000BE33AD /* Constants.swift in Sources */,
 				CB0EF22F1E39C0EE00BE33AD /* PlayerController.swift in Sources */,
-				CB0EF2131E2F409C00BE33AD /* SearchResultVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,7 +453,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -513,7 +497,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -526,11 +510,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = APPN2F7QS9;
+				DEVELOPMENT_TEAM = XP43SN7FM7;
 				INFOPLIST_FILE = Muzic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mivsolution.Muzic;
+				PRODUCT_BUNDLE_IDENTIFIER = appdev.Muzic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -540,11 +524,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = APPN2F7QS9;
+				DEVELOPMENT_TEAM = XP43SN7FM7;
 				INFOPLIST_FILE = Muzic/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = mivsolution.Muzic;
+				PRODUCT_BUNDLE_IDENTIFIER = appdev.Muzic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};

@@ -69,6 +69,7 @@ class VideoCell: UICollectionViewCell {
     
     func askToDownload() {
         if let v = self.video {
+            downloadBtn.isEnabled = false
             let myActionSheet = UIAlertController(title: "Download File Type", message: "Video or Audio only?", preferredStyle: .actionSheet)
             let videoAction = UIAlertAction(title: "Video", style: .default, handler: { (action) in
                 ApiService.downloadMedia(media: v, video: true, completed: {

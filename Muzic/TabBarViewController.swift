@@ -18,17 +18,20 @@ class TabBarViewController: UITabBarController {
         tabBar.clipsToBounds = true
         toolbarItems = []
         let playerController = PlayerController()
-        let searchController = SearchViewController()
+        let layout = UICollectionViewFlowLayout()
+        let searchController = SearchViewController(collectionViewLayout: layout)
         searchController.playerController = playerController
         searchController.tabBarItem.title = "Search"
         searchController.tabBarItem.image = UIImage(named: "search")
-        let musicDirVC = MusicVC()
+        let musicDirVC = DirVC()
+        musicDirVC.workingDir = MUSIC_DIR_URL
         musicDirVC.playerController = playerController
         musicDirVC.navigationItem.title = "Music"
         let musicController = UINavigationController(rootViewController: musicDirVC)
         musicController.tabBarItem.title = "Music"
         musicController.tabBarItem.image = UIImage(named: "music")
-        let videoDirVC = VideoVC()
+        let videoDirVC = DirVC()
+        videoDirVC.workingDir = VIDEO_DIR_URL
         videoDirVC.playerController = playerController
         videoDirVC.navigationItem.title = "Video"
         let videoController = UINavigationController(rootViewController: videoDirVC)
@@ -38,10 +41,11 @@ class TabBarViewController: UITabBarController {
         videoController.tabBarItem.image = UIImage(named: "video")
         let downloadController = DownloadVC()
         downloadController.playerController = playerController
-        downloadController.tabBarItem.title = "Download"
-        downloadController.tabBarItem.image = UIImage(named: "download")
+        let downloadNavigationController = UINavigationController(rootViewController: downloadController)
+        downloadNavigationController.tabBarItem.title = "Download"
+        downloadNavigationController.tabBarItem.image = UIImage(named: "download")
         searchController.downloadVC = downloadController
-        viewControllers = [searchController, musicController, videoController, downloadController]
+        viewControllers = [searchController, musicController, videoController, downloadNavigationController]
         // Do any additional setup after loading the view.
     }
 
