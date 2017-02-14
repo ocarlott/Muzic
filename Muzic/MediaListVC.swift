@@ -76,7 +76,17 @@ class MediaListVC: CustomTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        playerController?.media = (indexPath.section == 0) ? musics[indexPath.item] : videos[indexPath.item]
+        var playlist = musics.count == 0 ? videos : musics
+        playlist.shuffle()
+        var currentItem = 0
+        for (index, media) in playlist.enumerated() {
+            if (media.title == musics[indexPath.item].title) || (media.title == videos[indexPath.item].title) {
+                currentItem = index
+                break
+            }
+        }
+        playerController.playlist = playlist
+        playerController.currentItem = currentItem
         present(playerController, animated: true, completion: nil)
     }
     

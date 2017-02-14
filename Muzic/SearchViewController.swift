@@ -68,11 +68,11 @@ class SearchViewController: UICollectionViewController, UICollectionViewDelegate
         inputBox.addTarget(nil, action: #selector(suggest), for: .editingChanged)
         view.addConstraintsWithFormatString(format: "V:|-20-[v0]|", views: bgImage)
         view.addConstraintsWithFormatString(format: "V:|-20-[v0]|", views: background)
-        view.addConstraintsWithFormatString(format: "H:|[v0]|", views: bgImage)
+        view.addConstraintsWithFormatString(format: "H:|-20-[v0]-20-|", views: bgImage)
         view.addConstraintsWithFormatString(format: "H:|[v0]|", views: background)
         view.addConstraintsWithFormatString(format: "V:|-30-[v0(30)]", views: inputBox)
         view.addConstraintsWithFormatString(format: "H:|-5-[v0]-5-|", views: inputBox)
-        collectionView?.frame = CGRect(x: 0, y: 70, width: view.frame.width, height: view.frame.height)
+        collectionView?.frame = CGRect(x: 10, y: 70, width: view.frame.width - 20, height: view.frame.height)
     }
     
     func search() {

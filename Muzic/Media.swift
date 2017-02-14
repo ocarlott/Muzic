@@ -18,4 +18,5 @@ class Media {
     var smallImgPath: String?
     var largeImgPath: String?
     var playerImageUrl: String?
+    var duration: Int?
 }

@@ -19,7 +19,7 @@ class SuggestCell: UICollectionViewCell {
     func setup(suggestText: String) {
         text.text = suggestText
         addSubview(text)
-        addConstraintsWithFormatString(format: "H:|-20-[v0]|", views: text)
+        addConstraintsWithFormatString(format: "H:|-10-[v0]|", views: text)
         addConstraintsWithFormatString(format: "V:|[v0]|", views: text)
     }
 }

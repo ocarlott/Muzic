@@ -91,7 +91,22 @@ class DownloadVC: CustomTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        playerController.media = (indexPath.section == 0) ? musics[indexPath.item] : videos[indexPath.item]
+        var currentItem = 0
+        var playlist: [Media]!
+        if indexPath.section == 0 {
+            playlist = musics
+        } else {
+            playlist = videos
+        }
+        playlist.shuffle()
+        for (index, media) in playlist.enumerated() {
+            if (indexPath.section == 0 && media.title == musics[indexPath.item].title) || (indexPath.section == 1 && media.title == videos[indexPath.item].title) {
+                currentItem = index
+                break
+            }
+        }
+        playerController.playlist = playlist
+        playerController.currentItem = currentItem
         present(playerController, animated: true, completion: nil)
     }
     

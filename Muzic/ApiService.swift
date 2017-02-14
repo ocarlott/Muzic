@@ -56,11 +56,17 @@ class ApiService {
                     if let unwrappedData = data, let json = try JSONSerialization.jsonObject(with: unwrappedData, options: .mutableContainers) as? [String: AnyObject] {
                         var videos = [Media]()
                         if let items = json["items"] as? [[String: AnyObject]] {
+                            var searchId = ""
                             for item in items {
                                 let video = Media()
                                 if let snippet = item["snippet"] as? [String: AnyObject], let title = snippet["title"] as? String, let id = item["id"] as? [String: String], let videoId = id["videoId"], let channel = snippet["channelTitle"] as? String {
                                     video.title = title
                                     video.channel = channel
+                                    if videos.count == 0 {
+                                        searchId += videoId
+                                    } else {
+                                        searchId += ",\(videoId)"
+                                    }
                                     video.id = videoId
                                     if let thumbnails = snippet["thumbnails"] as? [String: AnyObject], let medium = thumbnails["medium"] as? [String: AnyObject], let imageUrl = medium["url"] as? String, let high = thumbnails["high"], let playerImageUrl = high["url"] as? String {
                                         video.imageUrl = imageUrl
@@ -69,6 +75,7 @@ class ApiService {
                                     videos.append(video)
                                 }
                             }
+                            print(searchId)
                             DispatchQueue.main.async {
                                 completed(videos)
                             }

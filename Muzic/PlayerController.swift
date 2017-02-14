@@ -78,7 +78,8 @@ class PlayerController: UIViewController {
     lazy var timerBtn: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(addTimer), for: .touchUpInside)
-        btn.setImage(UIImage(named: "timer"), for: .normal)
+        btn.setImage(UIImage(named: "timer")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = .black
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -151,11 +152,15 @@ class PlayerController: UIViewController {
     var player: AVPlayer?
     var duration: Int!
     var isPlaying = false
-    var media: Media?
+    var playlist: [Media]!
+    var currentItem: Int!
     var observer: Any?
     var playerLayer: AVPlayerLayer!
     let defaults = UserDefaults()
     var isRepeat = false
+    var hour, minute, second: Int!
+    var timer: Date!
+    let calendar = Calendar.current
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -248,15 +253,7 @@ class PlayerController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if (media?.title != oldTitle) {
-            slider.setValue(0, animated: true)
-            let url = URL(fileURLWithPath: (media?.filePath)!)
-            if isPlaying {
-                player?.pause()
-            }
-            player = AVPlayer(url: url)
-            label.text = media?.title
-        }
+        loadFile()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -267,8 +264,30 @@ class PlayerController: UIViewController {
         catch let error {
             print(error)
         }
-        if (media?.title != oldTitle) {
-            if (media?.isVideo)! {
+        loadImage()
+        play()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        player?.removeTimeObserver(observer!)
+        defaults.set(isRepeat, forKey: "isRepeat")
+    }
+    
+    func loadFile() {
+        if (playlist[currentItem].title != oldTitle) {
+            slider.setValue(0, animated: true)
+            let url = URL(fileURLWithPath: (playlist[currentItem].filePath)!)
+            if isPlaying {
+                player?.pause()
+            }
+            player = AVPlayer(url: url)
+            label.text = playlist[currentItem].title
+        }
+    }
+    
+    func loadImage() {
+        if (playlist[currentItem].title != oldTitle) {
+            if (playlist[currentItem].isVideo)! {
                 imageView.alpha = 0
                 playerLayer = AVPlayerLayer(player: player)
                 playerLayer.frame = CGRect(x: 0, y: 0, width: playerFrame.frame.width, height: playerFrame.frame.height)
@@ -278,16 +297,10 @@ class PlayerController: UIViewController {
                 if playerLayer != nil {
                     playerLayer.isHidden = true
                 }
-                imageView.image = UIImage(contentsOfFile: (media?.largeImgPath)!)
+                imageView.image = UIImage(contentsOfFile: (playlist[currentItem].largeImgPath)!)
             }
-            oldTitle = media?.title
+            oldTitle = playlist[currentItem].title
         }
-        play()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        player?.removeTimeObserver(observer!)
-        defaults.set(isRepeat, forKey: "isRepeat")
     }
 
     func play() {
@@ -309,6 +322,10 @@ class PlayerController: UIViewController {
                                 self.slider.setValue(0, animated: true)
                                 self.player?.seek(to: kCMTimeZero)
                                 self.player?.play()
+                            })
+                        } else {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                                self.nextFile()
                             })
                         }
                     }
@@ -334,11 +351,25 @@ class PlayerController: UIViewController {
     }
     
     func nextFile() {
-        
+        if currentItem < playlist.count - 1 {
+            currentItem! += 1
+        } else {
+            currentItem = 0
+        }
+        loadFile()
+        loadImage()
+        play()
     }
     
     func prevFile() {
-        
+        if currentItem > 0 {
+            currentItem! -= 1
+        } else {
+            currentItem = playlist.count - 1
+        }
+        loadFile()
+        loadImage()
+        play()
     }
     
     func toggleTypePlay() {
@@ -352,7 +383,7 @@ class PlayerController: UIViewController {
     
     func toggleZoom() {
         let avPlayerVC = CustomAVPlayerVC()
-        let url = URL(fileURLWithPath: (media?.filePath)!)
+        let url = URL(fileURLWithPath: (playlist[currentItem].filePath)!)
         let playerFull = AVPlayer(url: url)
         player?.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
         playBtn.setImage(playImage, for: .normal)
@@ -377,9 +408,24 @@ class PlayerController: UIViewController {
     
     func setTimer() {
         timePicker.isHidden = true
+        
         toolbar.isHidden = true
+        timerBtn.tintColor = .blue
+        timer = Date().addingTimeInterval(timePicker.countDownDuration)
+        hour = calendar.component(.hour, from: timer)
+        minute = calendar.component(.minute, from: timer)
+        second = calendar.component(.second, from: timer)
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(Int(self.timePicker.countDownDuration)), execute: {
-            self.player?.pause()
+            let pTime = Date()
+            let pHour = self.calendar.component(.hour, from: pTime)
+            let pMinute = self.calendar.component(.minute, from: pTime)
+            let pSecond = self.calendar.component(.second, from: pTime)
+            if pHour == self.hour && pMinute == self.minute && pSecond >= self.second - 5 && pSecond <= self.second + 5 {
+                self.player?.pause()
+                self.timerBtn.tintColor = .black
+                self.timer = nil
+                self.playBtn.setImage(self.playImage, for: .normal)
+            }
         })
     }
     
