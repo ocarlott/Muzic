@@ -43,7 +43,7 @@ class DirVC: CustomTableVC {
         return dirs.count
     }
 
-    func searchDir() {
+    override func searchDir() {
         dirs = []
         dirUrls = []
         do {

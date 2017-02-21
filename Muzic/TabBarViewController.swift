@@ -41,11 +41,19 @@ class TabBarViewController: UITabBarController {
         videoController.tabBarItem.image = UIImage(named: "video")
         let downloadController = DownloadVC()
         downloadController.playerController = playerController
+        downloadController.musicVC = musicDirVC
+        downloadController.videoVC = videoDirVC
+        downloadController.workingDir = DOCUMENT_DIR_URL
         let downloadNavigationController = UINavigationController(rootViewController: downloadController)
         downloadNavigationController.tabBarItem.title = "Download"
         downloadNavigationController.tabBarItem.image = UIImage(named: "download")
         searchController.downloadVC = downloadController
-        viewControllers = [searchController, musicController, videoController, downloadNavigationController]
+        let favoriteController = FavoriteVC()
+        favoriteController.playerController = playerController
+        let favoriteNavigationController = UINavigationController(rootViewController: favoriteController)
+        favoriteNavigationController.tabBarItem.title = "Favorites"
+        favoriteNavigationController.tabBarItem.image = UIImage(named: "heart")
+        viewControllers = [searchController, musicController, videoController, favoriteNavigationController, downloadNavigationController]
         // Do any additional setup after loading the view.
     }
 

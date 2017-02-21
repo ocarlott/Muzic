@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import MuzicFramework
 
 class ApiService {
     static func getSuggestions(keyword: String, completed: @escaping ([String])->()) {

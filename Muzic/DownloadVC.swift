@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import MuzicFramework
 
 private let reuseIdentifier = "Cell"
 
@@ -14,7 +16,12 @@ class DownloadVC: CustomTableVC {
     
     var playerController: PlayerController!
     
-    var workingDir: URL = DOCUMENT_DIR_URL
+    var workingDir: URL?
+    var musicVC: CustomTableVC?
+    var videoVC: CustomTableVC?
+    var musicList = List<MediaInfo>()
+    var videoList = List<MediaInfo>()
+    var list = List<MediaInfo>()
     
     let headerView: UIView = {
         let view = UIView()
@@ -29,34 +36,67 @@ class DownloadVC: CustomTableVC {
         return lb
     }()
     
+    var isSelected = false
+    var isReadyToPlay = false
+    var playlist: [Media]!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(FileCell.self, forCellReuseIdentifier: reuseIdentifier)
         navigationItem.title = "Downloads"
+        if workingDir != nil {
+            searchDir()
+            setupTableAndPlaylist()
+        }
+    }
+    
+    func setupTableAndPlaylist() {
+        self.tableView.register(FileCell.self, forCellReuseIdentifier: reuseIdentifier)
         tableView.rowHeight = 90
         tableView.clipsToBounds = true
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 70, right: 0)
         tableView.tableFooterView = UIView()
-        searchFiles()
+        DispatchQueue.global().async {
+            self.playlist = self.musics
+            self.playlist.shuffle()
+            for media in self.playlist {
+                if let filePath = media.filePath {
+                    let url = URL(fileURLWithPath: filePath)
+                    let item = AVPlayerItem(url: url)
+                    let listItem = MediaInfo(media: media, item: item)
+                    self.musicList.add(key: listItem)
+                }
+            }
+            self.playlist = self.videos
+            self.playlist.shuffle()
+            for media in self.playlist {
+                if let filePath = media.filePath {
+                    let url = URL(fileURLWithPath: filePath)
+                    let item = AVPlayerItem(url: url)
+                    let listItem = MediaInfo(media: media, item: item)
+                    self.videoList.add(key: listItem)
+                }
+            }
+            self.isReadyToPlay = true
+        }
     }
     
-    func searchFiles() {
+    override func searchDir() {
         musics = []
         videos = []
         do {
-            let urls = try FileManager.default.contentsOfDirectory(at: workingDir, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
+            let urls = try FileManager.default.contentsOfDirectory(at: workingDir!, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
             for rl in urls {
                 let media = Media()
                 if rl.path.contains(".mp3") {
                     media.filePath = rl.path
-                    media.title = rl.path.replacingOccurrences(of: ".mp3", with: "").replacingOccurrences(of: (workingDir.path) + "/", with: "")
+                    media.title = rl.path.replacingOccurrences(of: ".mp3", with: "").replacingOccurrences(of: (workingDir?.path)! + "/", with: "")
                     media.smallImgPath = PICTURE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path
                     media.largeImgPath = PLAYER_IMAGE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path
                     media.isVideo = false
                     musics.append(media)
                 } else if rl.path.contains(".mp4") {
                     media.filePath = rl.path
-                    media.title = rl.path.replacingOccurrences(of: ".mp4", with: "").replacingOccurrences(of: (workingDir.path) + "/", with: "")
+                    media.title = rl.path.replacingOccurrences(of: ".mp4", with: "").replacingOccurrences(of: (workingDir?.path)! + "/", with: "")
                     media.smallImgPath = PICTURE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path
                     media.largeImgPath = PLAYER_IMAGE_DIR_URL.appendingPathComponent(media.title! + ".jpg").path
                     media.isVideo = true
@@ -91,23 +131,18 @@ class DownloadVC: CustomTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var currentItem = 0
-        var playlist: [Media]!
-        if indexPath.section == 0 {
-            playlist = musics
-        } else {
-            playlist = videos
-        }
-        playlist.shuffle()
-        for (index, media) in playlist.enumerated() {
-            if (indexPath.section == 0 && media.title == musics[indexPath.item].title) || (indexPath.section == 1 && media.title == videos[indexPath.item].title) {
-                currentItem = index
-                break
+        if isReadyToPlay {
+            list = indexPath.section == 0 ? musicList : videoList
+            playlist = indexPath.section == 0 ? musics : videos
+            while true {
+                if list.getCurrentKey().media.title == playlist[indexPath.item].title {
+                    break
+                }
+                list.next()
             }
+            playerController.playlist = list
+            present(playerController, animated: true, completion: nil)
         }
-        playerController.playlist = playlist
-        playerController.currentItem = currentItem
-        present(playerController, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -181,6 +216,7 @@ class DownloadVC: CustomTableVC {
             modal.workingDir = indexPath.section == 0 ? MUSIC_DIR_URL : VIDEO_DIR_URL
             modal.searchDir()
             modal.workingVC = self
+            modal.destinationVC = indexPath.section == 0 ? self.musicVC : self.videoVC
             modal.indexToRemove = indexPath.item
             modal.loadedFromDownloadVC = true
             modal.media = indexPath.section == 0 ? self.musics[indexPath.item] : self.videos[indexPath.item]

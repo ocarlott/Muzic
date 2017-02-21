@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MuzicFramework
 
 class VideoCell: UICollectionViewCell {
     
@@ -74,7 +75,7 @@ class VideoCell: UICollectionViewCell {
             let videoAction = UIAlertAction(title: "Video", style: .default, handler: { (action) in
                 ApiService.downloadMedia(media: v, video: true, completed: {
                     DispatchQueue.main.async {
-                        self.searchVC?.downloadVC?.searchFiles()
+                        self.searchVC?.downloadVC?.searchDir()
                         self.searchVC?.downloadVC?.tableView?.reloadData()
                     }
                     self.downloadNotification(title: v.title! + ".mp4")
@@ -83,7 +84,7 @@ class VideoCell: UICollectionViewCell {
             let audioAction = UIAlertAction(title: "Audio Only", style: .default, handler: { (action) in
                 ApiService.downloadMedia(media: v, video: false, completed: {
                     DispatchQueue.main.async {
-                        self.searchVC?.downloadVC?.searchFiles()
+                        self.searchVC?.downloadVC?.searchDir()
                         self.searchVC?.downloadVC?.tableView?.reloadData()
                     }
                     self.downloadNotification(title: v.title! + ".mp3")

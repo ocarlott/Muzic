@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MuzicFramework
 
 class CustomTableVC: UITableViewController {
     
@@ -24,5 +25,9 @@ class CustomTableVC: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
+    }
+    
+    func searchDir() {
+        
     }
 }

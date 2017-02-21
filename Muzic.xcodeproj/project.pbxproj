@@ -14,11 +14,9 @@
 		CB0EF1EE1E2D9EB400BE33AD /* MuzicUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1ED1E2D9EB400BE33AD /* MuzicUITests.swift */; };
 		CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */; };
 		CB0EF2031E2E98E800BE33AD /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2021E2E98E800BE33AD /* SearchViewController.swift */; };
-		CB0EF2051E2EAA2400BE33AD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2041E2EAA2400BE33AD /* Extensions.swift */; };
 		CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF20C1E2F018D00BE33AD /* ApiService.swift */; };
 		CB0EF20F1E2F084300BE33AD /* SuggestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF20E1E2F084300BE33AD /* SuggestCell.swift */; };
 		CB0EF2111E2F0D0000BE33AD /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2101E2F0D0000BE33AD /* Constants.swift */; };
-		CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2141E2F50DB00BE33AD /* Media.swift */; };
 		CB0EF2171E2F52B300BE33AD /* VideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2161E2F52B300BE33AD /* VideoCell.swift */; };
 		CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */; };
 		CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF21E1E331FB600BE33AD /* FileCell.swift */; };
@@ -26,6 +24,16 @@
 		CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */; };
 		CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */; };
 		CB0EF22F1E39C0EE00BE33AD /* PlayerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */; };
+		CB2CDE251E598C7D005FA558 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2CDE241E598C7D005FA558 /* NotificationCenter.framework */; };
+		CB2CDE281E598C7D005FA558 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2CDE271E598C7D005FA558 /* TodayViewController.swift */; };
+		CB2CDE2B1E598C7D005FA558 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB2CDE291E598C7D005FA558 /* MainInterface.storyboard */; };
+		CB2CDE2F1E598C7D005FA558 /* Muzic Widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CB2CDE221E598C7D005FA558 /* Muzic Widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CB2CDE361E599362005FA558 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB0EF1D41E2D9EB400BE33AD /* Assets.xcassets */; };
+		CB2CDE3A1E5994E5005FA558 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2CDE391E5994E5005FA558 /* FavoriteCell.swift */; };
+		CB2CDE731E5B930F005FA558 /* FavoriteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2CDE721E5B930F005FA558 /* FavoriteVC.swift */; };
+		CB2CDE751E5BCDD2005FA558 /* MuzicFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2CDE691E5B8425005FA558 /* MuzicFramework.framework */; };
+		CB2CDE791E5BD0B8005FA558 /* MuzicFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2CDE691E5B8425005FA558 /* MuzicFramework.framework */; };
+		CB2CDE7A1E5BD0B8005FA558 /* MuzicFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = CB2CDE691E5B8425005FA558 /* MuzicFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB4521F11E441A15004ED96B /* CustomAVPlayerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */; };
 		CB64E9411E44631300328290 /* CustomTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64E9401E44631300328290 /* CustomTableVC.swift */; };
 		CBAB4CC51E3FAC6F00455729 /* PlaylistModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */; };
@@ -46,7 +54,60 @@
 			remoteGlobalIDString = CB0EF1C91E2D9EB400BE33AD;
 			remoteInfo = Muzic;
 		};
+		CB2CDE2D1E598C7D005FA558 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB0EF1C21E2D9EB400BE33AD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CB2CDE211E598C7D005FA558;
+			remoteInfo = "Muzic Widget";
+		};
+		CB2CDE681E5B8425005FA558 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB2CDE631E5B8424005FA558 /* MuzicFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CB2CDE491E5B8424005FA558;
+			remoteInfo = MuzicFramework;
+		};
+		CB2CDE6A1E5B8425005FA558 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB2CDE631E5B8424005FA558 /* MuzicFramework.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = CB2CDE521E5B8424005FA558;
+			remoteInfo = MuzicFrameworkTests;
+		};
+		CB2CDE7B1E5BD0B8005FA558 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CB2CDE631E5B8424005FA558 /* MuzicFramework.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = CB2CDE481E5B8424005FA558;
+			remoteInfo = MuzicFramework;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CB2CDE331E598C7D005FA558 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CB2CDE2F1E598C7D005FA558 /* Muzic Widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CB2CDE7D1E5BD0B8005FA558 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				CB2CDE7A1E5BD0B8005FA558 /* MuzicFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		CB0EF1CA1E2D9EB400BE33AD /* Muzic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Muzic.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -62,11 +123,9 @@
 		CB0EF1EF1E2D9EB400BE33AD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB0EF1FB1E2E91B900BE33AD /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		CB0EF2021E2E98E800BE33AD /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		CB0EF2041E2EAA2400BE33AD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CB0EF20C1E2F018D00BE33AD /* ApiService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		CB0EF20E1E2F084300BE33AD /* SuggestCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestCell.swift; sourceTree = "<group>"; };
 		CB0EF2101E2F0D0000BE33AD /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		CB0EF2141E2F50DB00BE33AD /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		CB0EF2161E2F52B300BE33AD /* VideoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCell.swift; sourceTree = "<group>"; };
 		CB0EF2181E32BB6D00BE33AD /* DownloadVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DownloadVC.swift; sourceTree = "<group>"; };
 		CB0EF21E1E331FB600BE33AD /* FileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
@@ -74,6 +133,16 @@
 		CB0EF2261E36ABFC00BE33AD /* PlaylistCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistCell.swift; sourceTree = "<group>"; };
 		CB0EF22C1E36E3AF00BE33AD /* MediaListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaListVC.swift; sourceTree = "<group>"; };
 		CB0EF22E1E39C0EE00BE33AD /* PlayerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerController.swift; sourceTree = "<group>"; };
+		CB2CDE221E598C7D005FA558 /* Muzic Widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Muzic Widget.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB2CDE241E598C7D005FA558 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		CB2CDE271E598C7D005FA558 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		CB2CDE2A1E598C7D005FA558 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		CB2CDE2C1E598C7D005FA558 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CB2CDE341E5992F6005FA558 /* Muzic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Muzic.entitlements; sourceTree = "<group>"; };
+		CB2CDE351E599306005FA558 /* Muzic Widget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Muzic Widget.entitlements"; sourceTree = "<group>"; };
+		CB2CDE391E5994E5005FA558 /* FavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
+		CB2CDE631E5B8424005FA558 /* MuzicFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = MuzicFramework.xcodeproj; path = MuzicFramework/MuzicFramework.xcodeproj; sourceTree = "<group>"; };
+		CB2CDE721E5B930F005FA558 /* FavoriteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteVC.swift; sourceTree = "<group>"; };
 		CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomAVPlayerVC.swift; sourceTree = "<group>"; };
 		CB64E9401E44631300328290 /* CustomTableVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableVC.swift; sourceTree = "<group>"; };
 		CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaylistModalVC.swift; sourceTree = "<group>"; };
@@ -84,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB2CDE791E5BD0B8005FA558 /* MuzicFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,15 +171,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CB2CDE1F1E598C7D005FA558 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB2CDE751E5BCDD2005FA558 /* MuzicFramework.framework in Frameworks */,
+				CB2CDE251E598C7D005FA558 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		CB0EF1C11E2D9EB400BE33AD = {
 			isa = PBXGroup;
 			children = (
+				CB2CDE631E5B8424005FA558 /* MuzicFramework.xcodeproj */,
 				CB0EF1CC1E2D9EB400BE33AD /* Muzic */,
 				CB0EF1E11E2D9EB400BE33AD /* MuzicTests */,
 				CB0EF1EC1E2D9EB400BE33AD /* MuzicUITests */,
+				CB2CDE261E598C7D005FA558 /* Muzic Widget */,
+				CB2CDE231E598C7D005FA558 /* Frameworks */,
 				CB0EF1CB1E2D9EB400BE33AD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -120,6 +202,7 @@
 				CB0EF1CA1E2D9EB400BE33AD /* Muzic.app */,
 				CB0EF1DE1E2D9EB400BE33AD /* MuzicTests.xctest */,
 				CB0EF1E91E2D9EB400BE33AD /* MuzicUITests.xctest */,
+				CB2CDE221E598C7D005FA558 /* Muzic Widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -127,10 +210,10 @@
 		CB0EF1CC1E2D9EB400BE33AD /* Muzic */ = {
 			isa = PBXGroup;
 			children = (
+				CB2CDE341E5992F6005FA558 /* Muzic.entitlements */,
 				CB0EF2011E2E97A800BE33AD /* Resources */,
 				CB0EF2001E2E979F00BE33AD /* Utilities */,
 				CB0EF1FF1E2E979600BE33AD /* Controller */,
-				CB0EF1FE1E2E979000BE33AD /* Model */,
 				CB0EF1FD1E2E978900BE33AD /* View */,
 			);
 			path = Muzic;
@@ -166,14 +249,6 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		CB0EF1FE1E2E979000BE33AD /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CB0EF2141E2F50DB00BE33AD /* Media.swift */,
-			);
-			name = Model;
-			sourceTree = "<group>";
-		};
 		CB0EF1FF1E2E979600BE33AD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +261,7 @@
 				CBAB4CC41E3FAC6F00455729 /* PlaylistModalVC.swift */,
 				CB4521F01E441A15004ED96B /* CustomAVPlayerVC.swift */,
 				CB64E9401E44631300328290 /* CustomTableVC.swift */,
+				CB2CDE721E5B930F005FA558 /* FavoriteVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -194,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				CB0EF1CD1E2D9EB400BE33AD /* AppDelegate.swift */,
-				CB0EF2041E2EAA2400BE33AD /* Extensions.swift */,
 				CB0EF20C1E2F018D00BE33AD /* ApiService.swift */,
 			);
 			name = Utilities;
@@ -210,6 +285,35 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		CB2CDE231E598C7D005FA558 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CB2CDE241E598C7D005FA558 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CB2CDE261E598C7D005FA558 /* Muzic Widget */ = {
+			isa = PBXGroup;
+			children = (
+				CB2CDE351E599306005FA558 /* Muzic Widget.entitlements */,
+				CB2CDE271E598C7D005FA558 /* TodayViewController.swift */,
+				CB2CDE291E598C7D005FA558 /* MainInterface.storyboard */,
+				CB2CDE2C1E598C7D005FA558 /* Info.plist */,
+				CB2CDE391E5994E5005FA558 /* FavoriteCell.swift */,
+			);
+			path = "Muzic Widget";
+			sourceTree = "<group>";
+		};
+		CB2CDE641E5B8424005FA558 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CB2CDE691E5B8425005FA558 /* MuzicFramework.framework */,
+				CB2CDE6B1E5B8425005FA558 /* MuzicFrameworkTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -220,10 +324,14 @@
 				CB0EF1C61E2D9EB400BE33AD /* Sources */,
 				CB0EF1C71E2D9EB400BE33AD /* Frameworks */,
 				CB0EF1C81E2D9EB400BE33AD /* Resources */,
+				CB2CDE331E598C7D005FA558 /* Embed App Extensions */,
+				CB2CDE7D1E5BD0B8005FA558 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				CB2CDE2E1E598C7D005FA558 /* PBXTargetDependency */,
+				CB2CDE7C1E5BD0B8005FA558 /* PBXTargetDependency */,
 			);
 			name = Muzic;
 			productName = Muzic;
@@ -266,6 +374,23 @@
 			productReference = CB0EF1E91E2D9EB400BE33AD /* MuzicUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		CB2CDE211E598C7D005FA558 /* Muzic Widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CB2CDE321E598C7D005FA558 /* Build configuration list for PBXNativeTarget "Muzic Widget" */;
+			buildPhases = (
+				CB2CDE1E1E598C7D005FA558 /* Sources */,
+				CB2CDE1F1E598C7D005FA558 /* Frameworks */,
+				CB2CDE201E598C7D005FA558 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Muzic Widget";
+			productName = "Muzic Widget";
+			productReference = CB2CDE221E598C7D005FA558 /* Muzic Widget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -281,6 +406,9 @@
 						DevelopmentTeam = XP43SN7FM7;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -296,6 +424,16 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = CB0EF1C91E2D9EB400BE33AD;
 					};
+					CB2CDE211E598C7D005FA558 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = XP43SN7FM7;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 				};
 			};
 			buildConfigurationList = CB0EF1C51E2D9EB400BE33AD /* Build configuration list for PBXProject "Muzic" */;
@@ -309,14 +447,38 @@
 			mainGroup = CB0EF1C11E2D9EB400BE33AD;
 			productRefGroup = CB0EF1CB1E2D9EB400BE33AD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = CB2CDE641E5B8424005FA558 /* Products */;
+					ProjectRef = CB2CDE631E5B8424005FA558 /* MuzicFramework.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				CB0EF1C91E2D9EB400BE33AD /* Muzic */,
 				CB0EF1DD1E2D9EB400BE33AD /* MuzicTests */,
 				CB0EF1E81E2D9EB400BE33AD /* MuzicUITests */,
+				CB2CDE211E598C7D005FA558 /* Muzic Widget */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		CB2CDE691E5B8425005FA558 /* MuzicFramework.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = MuzicFramework.framework;
+			remoteRef = CB2CDE681E5B8425005FA558 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		CB2CDE6B1E5B8425005FA558 /* MuzicFrameworkTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = MuzicFrameworkTests.xctest;
+			remoteRef = CB2CDE6A1E5B8425005FA558 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		CB0EF1C81E2D9EB400BE33AD /* Resources */ = {
@@ -342,6 +504,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CB2CDE201E598C7D005FA558 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB2CDE361E599362005FA558 /* Assets.xcassets in Resources */,
+				CB2CDE2B1E598C7D005FA558 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -351,10 +522,10 @@
 			files = (
 				CB0EF22D1E36E3AF00BE33AD /* MediaListVC.swift in Sources */,
 				CB0EF2251E3696A400BE33AD /* DirVC.swift in Sources */,
+				CB2CDE731E5B930F005FA558 /* FavoriteVC.swift in Sources */,
 				CB0EF1FC1E2E91B900BE33AD /* TabBarViewController.swift in Sources */,
 				CB0EF2191E32BB6D00BE33AD /* DownloadVC.swift in Sources */,
 				CB0EF20D1E2F018D00BE33AD /* ApiService.swift in Sources */,
-				CB0EF2051E2EAA2400BE33AD /* Extensions.swift in Sources */,
 				CB64E9411E44631300328290 /* CustomTableVC.swift in Sources */,
 				CB0EF2271E36ABFC00BE33AD /* PlaylistCell.swift in Sources */,
 				CB4521F11E441A15004ED96B /* CustomAVPlayerVC.swift in Sources */,
@@ -363,7 +534,6 @@
 				CB0EF21F1E331FB600BE33AD /* FileCell.swift in Sources */,
 				CB0EF20F1E2F084300BE33AD /* SuggestCell.swift in Sources */,
 				CBAB4CC51E3FAC6F00455729 /* PlaylistModalVC.swift in Sources */,
-				CB0EF2151E2F50DB00BE33AD /* Media.swift in Sources */,
 				CB0EF1CE1E2D9EB400BE33AD /* AppDelegate.swift in Sources */,
 				CB0EF2111E2F0D0000BE33AD /* Constants.swift in Sources */,
 				CB0EF22F1E39C0EE00BE33AD /* PlayerController.swift in Sources */,
@@ -386,6 +556,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CB2CDE1E1E598C7D005FA558 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CB2CDE3A1E5994E5005FA558 /* FavoriteCell.swift in Sources */,
+				CB2CDE281E598C7D005FA558 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -399,6 +578,16 @@
 			target = CB0EF1C91E2D9EB400BE33AD /* Muzic */;
 			targetProxy = CB0EF1EA1E2D9EB400BE33AD /* PBXContainerItemProxy */;
 		};
+		CB2CDE2E1E598C7D005FA558 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CB2CDE211E598C7D005FA558 /* Muzic Widget */;
+			targetProxy = CB2CDE2D1E598C7D005FA558 /* PBXContainerItemProxy */;
+		};
+		CB2CDE7C1E5BD0B8005FA558 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = MuzicFramework;
+			targetProxy = CB2CDE7B1E5BD0B8005FA558 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -408,6 +597,14 @@
 				CB0EF1D71E2D9EB400BE33AD /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		CB2CDE291E598C7D005FA558 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CB2CDE2A1E598C7D005FA558 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -509,7 +706,9 @@
 		CB0EF1F31E2D9EB400BE33AD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Muzic/Muzic.entitlements;
 				DEVELOPMENT_TEAM = XP43SN7FM7;
 				INFOPLIST_FILE = Muzic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
@@ -517,13 +716,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = appdev.Muzic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		CB0EF1F41E2D9EB400BE33AD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Muzic/Muzic.entitlements;
 				DEVELOPMENT_TEAM = XP43SN7FM7;
 				INFOPLIST_FILE = Muzic/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
@@ -531,6 +733,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = appdev.Muzic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -588,6 +791,36 @@
 			};
 			name = Release;
 		};
+		CB2CDE301E598C7D005FA558 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Muzic Widget/Muzic Widget.entitlements";
+				DEVELOPMENT_TEAM = XP43SN7FM7;
+				INFOPLIST_FILE = "Muzic Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "appdev.Muzic.Muzic-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		CB2CDE311E598C7D005FA558 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Muzic Widget/Muzic Widget.entitlements";
+				DEVELOPMENT_TEAM = XP43SN7FM7;
+				INFOPLIST_FILE = "Muzic Widget/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "appdev.Muzic.Muzic-Widget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -626,6 +859,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		CB2CDE321E598C7D005FA558 /* Build configuration list for PBXNativeTarget "Muzic Widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB2CDE301E598C7D005FA558 /* Debug */,
+				CB2CDE311E598C7D005FA558 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

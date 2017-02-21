@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Muzic Widget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>Muzic.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>CB0EF1E81E2D9EB400BE33AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CB2CDE211E598C7D005FA558</key>
 		<dict>
 			<key>primary</key>
 			<true/>

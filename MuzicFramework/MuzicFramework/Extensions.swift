@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-extension UIView {
+public extension UIView {
     func addConstraintsWithFormatString(format: String, views: UIView...) {
         var viewDict = [String: UIView]()
         for (index, view) in views.enumerated() {
@@ -22,7 +22,7 @@ extension UIView {
 }
 
 
-extension MutableCollection where Indices.Iterator.Element == Index {
+public extension MutableCollection where Indices.Iterator.Element == Index {
     mutating func shuffle() {
         let c = count
         guard c > 1 else { return }

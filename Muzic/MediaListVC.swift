@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AVFoundation
+import MuzicFramework
 
 class MediaListVC: CustomTableVC {
     
@@ -15,21 +17,47 @@ class MediaListVC: CustomTableVC {
     var workingDir: URL!
     
     var playerController: PlayerController!
+    var isSeleted = false
+    var playlist: [Media]!
+    var musicList = List<MediaInfo>()
+    var videoList = List<MediaInfo>()
+    var list = List<MediaInfo>()
+    var isReadyToPlay = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(FileCell.self, forCellReuseIdentifier: cellId)
         tableView.rowHeight = 90
         tableView.tableFooterView = UIView()
+        searchDir()
+        DispatchQueue.global().async {
+            self.playlist = self.musics
+            self.playlist.shuffle()
+            for media in self.playlist {
+                if let filePath = media.filePath {
+                    let url = URL(fileURLWithPath: filePath)
+                    let item = AVPlayerItem(url: url)
+                    let listItem = MediaInfo(media: media, item: item)
+                    self.musicList.add(key: listItem)
+                }
+            }
+            self.playlist = self.videos
+            self.playlist.shuffle()
+            for media in self.playlist {
+                if let filePath = media.filePath {
+                    let url = URL(fileURLWithPath: filePath)
+                    let item = AVPlayerItem(url: url)
+                    let listItem = MediaInfo(media: media, item: item)
+                    self.videoList.add(key: listItem)
+                }
+            }
+            self.isReadyToPlay = true
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    override func searchDir() {
         musics = []
         videos = []
-        searchFiles()
-    }
-    
-    func searchFiles() {
         do {
             let urls = try FileManager.default.contentsOfDirectory(at: workingDir, includingPropertiesForKeys: nil, options: [.skipsSubdirectoryDescendants, .skipsHiddenFiles])
             for rl in urls {
@@ -76,18 +104,18 @@ class MediaListVC: CustomTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var playlist = musics.count == 0 ? videos : musics
-        playlist.shuffle()
-        var currentItem = 0
-        for (index, media) in playlist.enumerated() {
-            if (media.title == musics[indexPath.item].title) || (media.title == videos[indexPath.item].title) {
-                currentItem = index
-                break
+        if !isSeleted {
+            list = videos.count == 0 ? musicList : videoList
+            playlist = videos.count == 0 ? musics : videos
+            while true {
+                if list.getCurrentKey().media.title == playlist[indexPath.item].title {
+                    break
+                }
+                list.next()
             }
+            playerController.playlist = list
+            present(playerController, animated: true, completion: nil)
         }
-        playerController.playlist = playlist
-        playerController.currentItem = currentItem
-        present(playerController, animated: true, completion: nil)
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {

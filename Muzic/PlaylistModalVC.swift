@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MuzicFramework
 
 class PlaylistModalVC: UITableViewController {
     
@@ -19,6 +20,7 @@ class PlaylistModalVC: UITableViewController {
     var workingDir: URL!
     
     var workingVC: CustomTableVC!
+    var destinationVC: CustomTableVC!
     
     var media: Media!
     
@@ -85,6 +87,8 @@ class PlaylistModalVC: UITableViewController {
                         self.workingVC.musics.remove(at: self.indexToRemove)
                     }
                     self.workingVC.tableView.reloadData()
+                    self.destinationVC.searchDir()
+                    self.destinationVC.tableView.reloadData()
                 }
             } catch let error {
                 print(error)

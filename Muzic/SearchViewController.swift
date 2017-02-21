@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MuzicFramework
 
 class SearchViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
