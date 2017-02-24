@@ -7,19 +7,16 @@
 //
 
 import UIKit
+import CoreData
 
 private let cellId = "PlaylistCell"
 
 class DirVC: CustomTableVC {
     
-    var dirUrls = [URL]()
+    var playlistItems = [Playlist]()
     
-    var dirs = [String]()
-    
-    var workingDir: URL?
-    
-    var playerController: PlayerController?
-    
+    var isVideoType: Bool?
+        
     var mediaListVC: MediaListVC = {
         let vc = MediaListVC()
         return vc
@@ -27,9 +24,8 @@ class DirVC: CustomTableVC {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.tableFooterView = UIView()
-        searchDir()
-        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addDir))
+        searchPlaylists()
+        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(self.addPlaylist))
         addBtn.tintColor = .black
         navigationItem.rightBarButtonItem = addBtn
         tableView.register(PlaylistCell.self, forCellReuseIdentifier: cellId)
@@ -40,42 +36,50 @@ class DirVC: CustomTableVC {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dirs.count
+        return playlistItems.count
     }
 
-    override func searchDir() {
-        dirs = []
-        dirUrls = []
+    func searchPlaylists() {
+        let fetchRequest: NSFetchRequest<Playlist> = Playlist.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "isVideoType == %@", NSNumber(booleanLiteral: isVideoType!))
         do {
-            dirUrls = try FileManager.default.contentsOfDirectory(at: workingDir!, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-            for dir in dirUrls {
-                dirs.append(dir.path.replacingOccurrences(of: (workingDir?.path)! + "/", with: ""))
+            if let results = try context?.fetch(fetchRequest) {
+                playlistItems = results
             }
             tableView.reloadData()
-        } catch let error {
-            print(error)
+        } catch {
+            print("Failed to fetch playlists")
         }
     }
     
-    func addDir() {
+    func addPlaylist() {
         var inputTF: UITextField?
         let myTextPopup = UIAlertController(title: "Add Playlist", message: "Enter Playlist Name", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
             if inputTF?.text != "" {
-                let newDir = self.workingDir?.appendingPathComponent((inputTF?.text)!, isDirectory: true)
-                do {
-                    if !FileManager.default.fileExists(atPath: (newDir?.path)!, isDirectory: nil) {
-                        try FileManager.default.createDirectory(at: newDir!, withIntermediateDirectories: false, attributes: nil)
-                        self.searchDir()
-                    } else {
-                        let alert = UIAlertController(title: "Error", message: "Playlist name already exists", preferredStyle: .alert)
+                var passed = true
+                for pl in self.playlistItems {
+                    if pl.name == inputTF?.text {
+                        let alert = UIAlertController(title: "Error", message: "Playlist name exists!", preferredStyle: .alert)
                         let ok = UIAlertAction(title: "OK", style: .default, handler: nil)
+                        passed = false
                         alert.addAction(ok)
                         myTextPopup.dismiss(animated: true, completion: nil)
                         self.navigationController?.present(alert, animated: true, completion: nil)
+                        break
                     }
-                } catch let error {
-                    print(error)
+                }
+                if passed {
+                    let newPlaylist = Playlist(context: self.context!)
+                    newPlaylist.name = inputTF?.text
+                    newPlaylist.isVideoType = self.isVideoType!
+                    do {
+                        try self.context?.save()
+                        self.playlistItems.append(newPlaylist)
+                        self.tableView.reloadData()
+                    } catch {
+                        print("Cannot save new playlist")
+                    }
                 }
             } else {
                 let alert = UIAlertController(title: "Error", message: "Playlist name cannot be left blank!", preferredStyle: .alert)
@@ -97,7 +101,8 @@ class DirVC: CustomTableVC {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PlaylistCell
-        cell.setupViews(folderName: dirs[indexPath.item])
+        cell.playlistItem = playlistItems[indexPath.item]
+        cell.setupViews()
         cell.tableVC = self
         return cell
     }
@@ -107,8 +112,9 @@ class DirVC: CustomTableVC {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        mediaListVC.navigationItem.title = dirs[indexPath.item]
-        mediaListVC.workingDir = dirUrls[indexPath.item]
+        mediaListVC.navigationItem.title = playlistItems[indexPath.item].name
+        mediaListVC.playlistItem = playlistItems[indexPath.item]
+        mediaListVC.searchFiles()
         mediaListVC.playerController = playerController
         navigationController?.pushViewController(mediaListVC, animated: true)
     }

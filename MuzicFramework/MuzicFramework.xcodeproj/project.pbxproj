@@ -13,6 +13,7 @@
 		CB2CDE6D1E5B845B005FA558 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2CDE6C1E5B845B005FA558 /* Extensions.swift */; };
 		CB2CDE6F1E5B88B6005FA558 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2CDE6E1E5B88B6005FA558 /* Media.swift */; };
 		CB2CDE711E5B8961005FA558 /* LinkedList.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2CDE701E5B8961005FA558 /* LinkedList.swift */; };
+		CB2CDE871E5E5DDB005FA558 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB2CDE861E5E5DDB005FA558 /* DataController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		CB2CDE6C1E5B845B005FA558 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		CB2CDE6E1E5B88B6005FA558 /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		CB2CDE701E5B8961005FA558 /* LinkedList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinkedList.swift; sourceTree = "<group>"; };
+		CB2CDE861E5E5DDB005FA558 /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				CB2CDE4C1E5B8424005FA558 /* MuzicFramework.h */,
+				CB2CDE861E5E5DDB005FA558 /* DataController.swift */,
 				CB2CDE6E1E5B88B6005FA558 /* Media.swift */,
 				CB2CDE6C1E5B845B005FA558 /* Extensions.swift */,
 				CB2CDE701E5B8961005FA558 /* LinkedList.swift */,
@@ -208,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB2CDE711E5B8961005FA558 /* LinkedList.swift in Sources */,
+				CB2CDE871E5E5DDB005FA558 /* DataController.swift in Sources */,
 				CB2CDE6F1E5B88B6005FA558 /* Media.swift in Sources */,
 				CB2CDE6D1E5B845B005FA558 /* Extensions.swift in Sources */,
 			);
@@ -344,7 +348,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MuzicFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mivsolution.MuzicFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -365,7 +369,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = MuzicFramework/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mivsolution.MuzicFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -419,6 +423,7 @@
 				CB2CDE5F1E5B8424005FA558 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CB2CDE601E5B8424005FA558 /* Build configuration list for PBXNativeTarget "MuzicFrameworkTests" */ = {
 			isa = XCConfigurationList;
@@ -427,6 +432,7 @@
 				CB2CDE621E5B8424005FA558 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

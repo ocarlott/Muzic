@@ -11,6 +11,7 @@ import AVFoundation
 import AVKit
 import MediaPlayer
 import MuzicFramework
+import CoreData
 
 class PlayerController: UIViewController {
     
@@ -88,9 +89,8 @@ class PlayerController: UIViewController {
     
     lazy var favBtn: UIButton = {
         let btn = UIButton()
-        btn.addTarget(self, action: #selector(addFav), for: .touchUpInside)
+        btn.addTarget(self, action: #selector(toggleFav), for: .touchUpInside)
         btn.setImage(UIImage(named: "heart")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        btn.tintColor = .black
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -161,11 +161,9 @@ class PlayerController: UIViewController {
     let toolbar = UIToolbar()
     
     var player = AVPlayer()
-    var playerItems = [AVPlayerItem]()
-    var favorites = [Media]()
     var duration: Int!
     var isPlaying = false
-    var playlist: List<MediaInfo>?
+    var playlist: List<MediaInfo<Item>>?
     var observer: Any!
     var playerLayer: AVPlayerLayer!
     let defaults = UserDefaults(suiteName: "group.appdev")
@@ -173,6 +171,7 @@ class PlayerController: UIViewController {
     var hour, minute, second: Int!
     var timer: Date!
     let calendar = Calendar.current
+    var context: NSManagedObjectContext?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -269,10 +268,6 @@ class PlayerController: UIViewController {
             isRepeat = true
         }
         
-        if let data = defaults?.data(forKey: "favorite") {
-            favorites = NSKeyedUnarchiver.unarchiveObject(with: data) as! [Media]
-        }
-        
         let commandCenter = MPRemoteCommandCenter.shared()
         commandCenter.nextTrackCommand.isEnabled = true
         commandCenter.nextTrackCommand.addTarget(self, action: #selector(nextFile))
@@ -325,9 +320,6 @@ class PlayerController: UIViewController {
         player.removeTimeObserver(observer!)
         observer = nil
         defaults?.set(isRepeat, forKey: "isRepeat")
-        defaults?.removeObject(forKey: "favorite")
-        let fav = NSKeyedArchiver.archivedData(withRootObject: favorites)
-        defaults?.set(fav, forKey: "favorite")
     }
     
     func loadFiles() {
@@ -347,7 +339,12 @@ class PlayerController: UIViewController {
                 if playerLayer != nil {
                     playerLayer.isHidden = true
                 }
-                imageView.image = UIImage(contentsOfFile: (playlist?.getCurrentKey().media.largeImgPath)!)
+                imageView.image = UIImage(contentsOfFile: (playlist?.getCurrentKey().media.imgPath)!)
+            }
+            if (playlist?.getCurrentKey().media.isFavorited)! {
+                favBtn.tintColor = .red
+            } else {
+                favBtn.tintColor = .black
             }
             label.text = playlist?.getCurrentKey().media.title
             playBtn.setImage(pauseImage, for: .normal)
@@ -365,7 +362,7 @@ class PlayerController: UIViewController {
             print(error)
         }
         let infoCenter = MPNowPlayingInfoCenter.default()
-        let artwork = MPMediaItemArtwork(image: UIImage(contentsOfFile: (playlist?.getCurrentKey().media.largeImgPath)!)!)
+        let artwork = MPMediaItemArtwork(image: UIImage(contentsOfFile: (playlist?.getCurrentKey().media.imgPath)!)!)
         let duration = NSNumber(value: Int(CMTimeGetSeconds((playlist?.getCurrentKey().playerItem.duration)!)))
         infoCenter.nowPlayingInfo = [MPMediaItemPropertyTitle: (playlist?.getCurrentKey().media.title)!,
                                      MPMediaItemPropertyArtwork: artwork,
@@ -497,9 +494,19 @@ class PlayerController: UIViewController {
         }
     }
     
-    func addFav() {
-        favBtn.tintColor = .red
-        favorites.append((playlist?.getCurrentKey().media)!)
+    func toggleFav() {
+        if (playlist?.getCurrentKey().media.isFavorited)! {
+            favBtn.tintColor = .black
+        } else {
+            favBtn.tintColor = .red
+        }
+        playlist?.getCurrentKey().media.isFavorited = !(playlist?.getCurrentKey().media.isFavorited)!
+        do {
+            try context?.save()
+        } catch {
+            print("Cannot save favorite item")
+        }
+        FavoriteVC.shouldUpdateFavorite = true
     }
 
 }

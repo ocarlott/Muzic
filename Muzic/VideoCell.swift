@@ -73,19 +73,19 @@ class VideoCell: UICollectionViewCell {
             downloadBtn.isEnabled = false
             let myActionSheet = UIAlertController(title: "Download File Type", message: "Video or Audio only?", preferredStyle: .actionSheet)
             let videoAction = UIAlertAction(title: "Video", style: .default, handler: { (action) in
-                ApiService.downloadMedia(media: v, video: true, completed: {
+                v.isVideo = true
+                ApiService.downloadMedia(media: v, completed: {
                     DispatchQueue.main.async {
-                        self.searchVC?.downloadVC?.searchDir()
-                        self.searchVC?.downloadVC?.tableView?.reloadData()
+                        self.searchVC?.downloadVC?.updatePlaylist()
                     }
                     self.downloadNotification(title: v.title! + ".mp4")
                 })
             })
             let audioAction = UIAlertAction(title: "Audio Only", style: .default, handler: { (action) in
-                ApiService.downloadMedia(media: v, video: false, completed: {
+                v.isVideo = false
+                ApiService.downloadMedia(media: v, completed: {
                     DispatchQueue.main.async {
-                        self.searchVC?.downloadVC?.searchDir()
-                        self.searchVC?.downloadVC?.tableView?.reloadData()
+                        self.searchVC?.downloadVC?.updatePlaylist()
                     }
                     self.downloadNotification(title: v.title! + ".mp3")
                 })
@@ -101,6 +101,6 @@ class VideoCell: UICollectionViewCell {
     func downloadNotification(title: String) {
         let myAlertBox = UIAlertController(title: "Download Completed", message: title + " has been downloaded.", preferredStyle: .alert)
         myAlertBox.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        searchVC?.present(myAlertBox, animated: true, completion: nil)
+        searchVC?.tabBarVC?.present(myAlertBox, animated: true, completion: nil)
     }
 }

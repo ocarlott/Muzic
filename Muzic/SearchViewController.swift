@@ -15,6 +15,8 @@ class SearchViewController: UICollectionViewController, UICollectionViewDelegate
     
     var videos = [Media]()
     
+    var tabBarVC: UITabBarController?
+    
     let suggestCellId = "suggestCell"
     
     let videoCellId = "videoId"

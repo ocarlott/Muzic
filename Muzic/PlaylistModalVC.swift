@@ -8,25 +8,21 @@
 
 import UIKit
 import MuzicFramework
+import CoreData
 
 class PlaylistModalVC: UITableViewController {
     
     let cellId = "cellId"
     
-    var dirUrls = [URL]()
+    var playlists = [String]()
     
-    var dirs = [String]()
+    var media: Item?
     
-    var workingDir: URL!
+    var downloadVC: DownloadVC?
     
-    var workingVC: CustomTableVC!
-    var destinationVC: CustomTableVC!
+    var indexToBeRemoved: Int?
     
-    var media: Media!
-    
-    var indexToRemove: Int!
-    
-    var loadedFromDownloadVC = false
+    var context: NSManagedObjectContext?
     
     lazy var cancelBtn: UIButton = {
         let btn = UIButton(type: .system)
@@ -48,51 +44,33 @@ class PlaylistModalVC: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dirs.count
+        return playlists.count
     }
     
     func cancel() {
         dismiss(animated: true, completion: nil)
     }
-    
-    func searchDir() {
-        dirs = []
-        dirUrls = []
-        do {
-            dirUrls = try FileManager.default.contentsOfDirectory(at: workingDir, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-            for dir in dirUrls {
-                dirs.append(dir.path.replacingOccurrences(of: workingDir.path + "/", with: ""))
-            }
-        } catch let error {
-            print(error)
-        }
-    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = dirs[indexPath.item]
+        cell.textLabel?.text = playlists[indexPath.item]
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let ext = (media?.isVideo)! ? ".mp4" : ".mp3"
-        let destinationUrl = dirUrls[indexPath.item].appendingPathComponent((media?.title)! + ext)
-        DispatchQueue.global().async {
-            do {
-                try FileManager.default.moveItem(atPath: (self.media?.filePath)!, toPath: destinationUrl.path)
-                DispatchQueue.main.async {
-                    if self.media.isVideo! {
-                        self.workingVC.videos.remove(at: self.indexToRemove)
-                    } else {
-                        self.workingVC.musics.remove(at: self.indexToRemove)
-                    }
-                    self.workingVC.tableView.reloadData()
-                    self.destinationVC.searchDir()
-                    self.destinationVC.tableView.reloadData()
-                }
-            } catch let error {
-                print(error)
-            }
+        let fetchRequest: NSFetchRequest<Playlist> = Playlist.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", playlists[indexPath.item])
+        do {
+            let results = try context?.fetch(fetchRequest)
+            results?.first?.addToItems(media!)
+            media?.isArchived = true
+            downloadVC?.medias.remove(at: self.indexToBeRemoved!)
+            downloadVC?.archives.append(media!)
+            downloadVC?.tableView.reloadData()
+            try context?.save()
+            CustomTableVC.updatePlaylist = (results?.first?.name)!
+        } catch {
+            print("Cannot fetch playlist or save item to playlist")
         }
         dismiss(animated: true, completion: nil)
     }

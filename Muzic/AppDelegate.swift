@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import MuzicFramework
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    var context: NSManagedObjectContext?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -22,6 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = tabController
         UIApplication.shared.statusBarStyle = .lightContent
         createFolder()
+        let dataController = DataController()
+        context = dataController.managedObjectContext
         return true
     }
 
@@ -45,25 +50,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        do {
+            try self.context?.save()
+        } catch {
+            print("Terminate error")
+        }
     }
 
     func createFolder() {
-        if !FileManager.default.fileExists(atPath: MUSIC_DIR_URL.path, isDirectory: nil) {
-            do {
-                try FileManager.default.createDirectory(at: MUSIC_DIR_URL, withIntermediateDirectories: false, attributes: nil)
-            } catch let error {
-                print(error)
-            }
-            do {
-                try FileManager.default.createDirectory(at: VIDEO_DIR_URL, withIntermediateDirectories: false, attributes: nil)
-            } catch let error {
-                print(error)
-            }
-            do {
-                try FileManager.default.createDirectory(at: PICTURE_DIR_URL, withIntermediateDirectories: false, attributes: nil)
-            } catch let error {
-                print(error)
-            }
+        if !FileManager.default.fileExists(atPath: PLAYER_IMAGE_DIR_URL.path, isDirectory: nil) {
             do {
                 try FileManager.default.createDirectory(at: PLAYER_IMAGE_DIR_URL, withIntermediateDirectories: false, attributes: nil)
             } catch let error {
@@ -71,5 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
+
 }
 

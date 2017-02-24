@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MuzicFramework
+import CoreData
 
 class ApiService {
     static func getSuggestions(keyword: String, completed: @escaping ([String])->()) {
@@ -89,53 +90,80 @@ class ApiService {
         }).resume()
     }
     
-    static func downloadMedia(media: Media, video: Bool, completed: @escaping (()->())) {
-        var url = URL(string: DOWNLOAD_VIDEO_API_URL + (media.id)!)
-        if !video {
-            url = URL(string: DOWNLOAD_AUDIO_API_URL + (media.id)!)
-        }
-        media.title = media.title?.replacingOccurrences(of: "/", with: "-")
-        let ext = video ? ".mp4" : ".mp3"
-        var destinationUrl = DOCUMENT_DIR_URL.appendingPathComponent(media.title! + ext)
-        if !FileManager.default.fileExists(atPath: (destinationUrl.path)) {
-            URLSession.shared.downloadTask(with: url!, completionHandler: { (dataUrl, response, error) in
-                if error != nil {
-                    print(error ?? "There is a problem with api server")
-                } else {
+    static func downloadMedia(media: Media, completed: @escaping (()->())) {
+        if let appDelegate = UIApplication.shared.delegate as! AppDelegate? {
+            let context = appDelegate.context
+            let fetchRequest = NSFetchRequest<Item>(entityName: "Item")
+            fetchRequest.predicate = NSPredicate(format: "id == %@", media.id!)
+            do {
+                let results = try context?.fetch(fetchRequest)
+                if results?.count == 0 {
+                    let item = Item(context: context!)
+                    let fetchDownload: NSFetchRequest<Download> = Download.fetchRequest()
+                    var download: Download?
                     do {
-                        if let unwrappedDataUrl = dataUrl {
-                            if let status = (response as? HTTPURLResponse)?.statusCode, status == 200 {
+                        let arr = try context?.fetch(fetchDownload)
+                        if arr?.count != 0 {
+                            download = arr?.first
+                        } else {
+                            download = Download(context: context!)
+                        }
+                    } catch {
+                        print("Cannot fetch download object")
+                    }
+                    item.id = media.id
+                    item.isVideo = media.isVideo!
+                    var url = URL(string: DOWNLOAD_VIDEO_API_URL + (media.id)!)
+                    if !media.isVideo! {
+                        url = URL(string: DOWNLOAD_AUDIO_API_URL + (media.id)!)
+                    }
+                    media.title = media.title?.replacingOccurrences(of: "/", with: "-")
+                    item.title = media.title
+                    item.channel = media.channel
+                    let ext = media.isVideo! ? ".mp4" : ".mp3"
+                    var destinationUrl = DOCUMENT_DIR_URL.appendingPathComponent(media.title! + ext)
+                    if !FileManager.default.fileExists(atPath: (destinationUrl.path)) {
+                        URLSession.shared.downloadTask(with: url!, completionHandler: { (dataUrl, response, error) in
+                            if error != nil {
+                                print(error ?? "There is a problem with api server")
+                            } else {
                                 do {
-                                    try FileManager.default.moveItem(at: unwrappedDataUrl, to: destinationUrl)
-                                    destinationUrl = PICTURE_DIR_URL.appendingPathComponent(media.title! + ".jpg")
-                                    let destinationUrl1 = PLAYER_IMAGE_DIR_URL.appendingPathComponent(media.title! + ".jpg")
-                                    if !FileManager.default.fileExists(atPath: (destinationUrl.path)) {
-                                        ApiService.downloadPicture(urlString: media.imageUrl!, completed: { (imageUrl) in
+                                    if let unwrappedDataUrl = dataUrl {
+                                        if let status = (response as? HTTPURLResponse)?.statusCode, status == 200 {
                                             do {
-                                                try FileManager.default.moveItem(at: imageUrl, to: destinationUrl)
-                                            } catch let error {
-                                                print(error)
+                                                try FileManager.default.moveItem(at: unwrappedDataUrl, to: destinationUrl)
+                                                item.filePath = destinationUrl.path
+                                                destinationUrl = PLAYER_IMAGE_DIR_URL.appendingPathComponent(media.title! + ".jpg")
+                                                if !FileManager.default.fileExists(atPath: (destinationUrl.path)) {
+                                                    ApiService.downloadPicture(urlString: media.playerImageUrl!, completed: { (imageUrl) in
+                                                        do {
+                                                            item.imgPath = destinationUrl.path
+                                                            item.isArchived = false
+                                                            item.isFavorited = false
+                                                            download?.addToItems(item)
+                                                            try FileManager.default.moveItem(at: imageUrl, to: destinationUrl)
+                                                            try context?.save()
+                                                            completed()
+                                                        } catch let error {
+                                                            print(error)
+                                                        }
+                                                    })
+                                                } else {
+                                                    print("File already exists")
+                                                }
+                                            } catch let writeError {
+                                                print(writeError)
                                             }
-                                        })
-                                        ApiService.downloadPicture(urlString: media.playerImageUrl!, completed: { (imageUrl) in
-                                            do {
-                                                try FileManager.default.moveItem(at: imageUrl, to: destinationUrl1)
-                                                completed()
-                                            } catch let error {
-                                                print(error)
-                                            }
-                                        })
-                                    } else {
-                                        print("File already exists")
+                                        }
                                     }
-                                } catch let writeError {
-                                    print(writeError)
                                 }
                             }
-                        }
+                        }).resume()
                     }
                 }
-            }).resume()
+            } catch let err {
+                print(err)
+            }
         }
     }
     

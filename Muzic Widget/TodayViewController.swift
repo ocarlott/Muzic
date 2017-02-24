@@ -9,6 +9,7 @@
 import UIKit
 import NotificationCenter
 import MuzicFramework
+import CoreData
 
 class TodayViewController: UIViewController, NCWidgetProviding, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -18,25 +19,32 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     
     let defaults = UserDefaults(suiteName: "group.appdev")
     
-    var medias = [Media]()
+    let DOCUMENT_DIR_URL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.appdev")!
+    
+    var medias = [Item]()
     
     var maxHeight = 110
     
+    var context: NSManagedObjectContext?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let dataController = DataController()
+        context = dataController.managedObjectContext
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(FavoriteCell.self, forCellWithReuseIdentifier: cellId)
+        do {
+            for path in try FileManager.default.contentsOfDirectory(atPath: DOCUMENT_DIR_URL.path) {
+                print(path)
+            }
+        } catch let err {
+            print(err)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if let data = defaults?.data(forKey: "favorite") {
-            let arr = NSKeyedUnarchiver.unarchiveObject(with: data) as! [Media]
-            for media in arr {
-                medias.append(media)
-            }
-        }
-        print(medias.count)
+        searchFiles()
         if medias.count > 3 {
             self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
             let rows = Int(medias.count / 3)
@@ -45,6 +53,18 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
             self.extensionContext?.widgetLargestAvailableDisplayMode = .compact
         }
         collectionView.reloadData()
+    }
+    
+    func searchFiles() {
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "isFavorited == %@", NSNumber(booleanLiteral: true))
+        do {
+            if let results = try context?.fetch(fetchRequest) {
+                medias = results
+            }
+        } catch {
+            print("Cannot fetch favorite items")
+        }
     }
     
     override func didReceiveMemoryWarning() {

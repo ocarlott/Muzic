@@ -30,11 +30,8 @@ public class Media: NSObject, NSCoding {
         if let filePath = aDecoder.decodeObject(forKey: "filePath") as! String? {
             self.filePath = filePath
         }
-        if let smallImgPath = aDecoder.decodeObject(forKey: "smallImgPath") as! String? {
-            self.smallImgPath = smallImgPath
-        }
-        if let largeImgPath = aDecoder.decodeObject(forKey: "largeImgPath") as! String? {
-            self.largeImgPath = largeImgPath
+        if let imgPath = aDecoder.decodeObject(forKey: "imgPath") as! String? {
+            self.imgPath = imgPath
         }
         if let playerImageUrl = aDecoder.decodeObject(forKey: "playerImgUrl") as! String? {
             self.playerImageUrl = playerImageUrl
@@ -51,8 +48,7 @@ public class Media: NSObject, NSCoding {
         aCoder.encode(self.imageUrl ?? "", forKey: "imageUrl")
         aCoder.encode(self.channel ?? "", forKey: "channel")
         aCoder.encode(self.filePath ?? "", forKey: "filePath")
-        aCoder.encode(self.smallImgPath ?? "", forKey: "smallImgPath")
-        aCoder.encode(self.largeImgPath ?? "", forKey: "largeImgPath")
+        aCoder.encode(self.imgPath ?? "", forKey: "imgPath")
         aCoder.encode(self.playerImageUrl ?? "", forKey: "playerImgUrl")
         aCoder.encode(self.isVideo ?? false, forKey: "isVideo")
         aCoder.encode(self.duration ?? 0, forKey: "duration")
@@ -64,8 +60,7 @@ public class Media: NSObject, NSCoding {
     public var isVideo: Bool?
     public var channel: String?
     public var filePath: String?
-    public var smallImgPath: String?
-    public var largeImgPath: String?
+    public var imgPath: String?
     public var playerImageUrl: String?
     public var duration: Int?
 }

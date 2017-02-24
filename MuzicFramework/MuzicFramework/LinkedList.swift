@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import CoreData
 
 public class LLNode<T> {
     var key: T?
@@ -63,10 +64,10 @@ public class List<T> {
     
 }
 
-public struct MediaInfo {
-    public var media: Media
+public struct MediaInfo<T> {
+    public var media: T
     public var playerItem: AVPlayerItem
-    public init(media: Media, item: AVPlayerItem) {
+    public init(media: T, item: AVPlayerItem) {
         self.media = media
         self.playerItem = item
     }

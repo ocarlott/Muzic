@@ -8,25 +8,54 @@
 
 import UIKit
 import MuzicFramework
+import CoreData
 
 class FavoriteVC: DownloadVC {
-
-    let defaults = UserDefaults(suiteName: "group.appdev")
+    
+    static var shouldUpdateFavorite = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Favorites"
-        if let data = defaults?.data(forKey: "favorite") {
-            let arr = NSKeyedUnarchiver.unarchiveObject(with: data) as! [Media]
-            for media in arr {
-                if media.isVideo! {
-                    videos.append(media)
-                } else {
-                    musics.append(media)
+        setupTable()
+        updatePlaylist()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if FavoriteVC.shouldUpdateFavorite {
+            updatePlaylist()
+        }
+    }
+    
+    override func searchFiles() {
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "isFavorited == %@", NSNumber(booleanLiteral: true))
+        do {
+            if let results = try context?.fetch(fetchRequest) {
+                medias = results
+            }
+        } catch {
+            print("Cannot fetch favorite items")
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Trash", handler: { action, index in
+            DispatchQueue.global().async {
+                do {
+                    self.medias[indexPath.item].isFavorited = false
+                    try self.context?.save()
+                    self.medias.remove(at: indexPath.item)
+                } catch let error {
+                    print(error)
+                }
+                DispatchQueue.main.sync {
+                    self.tableView.reloadData()
                 }
             }
-        }
-        setupTableAndPlaylist()
+        })
+        delete.backgroundColor = .red
+        return [delete]
     }
 
 }
