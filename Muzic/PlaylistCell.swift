@@ -3,13 +3,13 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/23/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
 
 class PlaylistCell: UITableViewCell {
 
+    // Variables
     var tableVC: DirVC?
     
     var playlistItem: Playlist?
@@ -29,6 +29,8 @@ class PlaylistCell: UITableViewCell {
         return lb
     }()
     
+    
+    // Methods
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -46,7 +48,7 @@ class PlaylistCell: UITableViewCell {
         addConstraintsWithFormatString(format: "H:|-30-[v0]-20-[v1(20)]-20-|", views: playlist, editBtn)
     }
     
-    func editPlaylist() {
+    @objc func editPlaylist() {
         var nameTF: UITextField?
         let myEditPopup = UIAlertController(title: "Change Playlist Name", message: "Enter new name for this playlist", preferredStyle: .alert)
         let changeAction = UIAlertAction(title: "Change", style: .default, handler: { (action) in

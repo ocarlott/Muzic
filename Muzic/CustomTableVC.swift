@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 2/3/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -13,13 +12,15 @@ import AVFoundation
 
 class CustomTableVC: UITableViewController {
     
+    // Variables
+    
     static var updatePlaylist = ""
     
     var medias = [Item]()
         
     var playlist = [Item]()
     
-    var list = List<MediaInfo<Item>>()
+    var list: List<Item>?
     
     var isSelected = false
     
@@ -32,6 +33,8 @@ class CustomTableVC: UITableViewController {
     let reuseIdentifier = "CellId"
     
     var playerController: PlayerController!
+    
+    // Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,13 +64,9 @@ class CustomTableVC: UITableViewController {
         DispatchQueue.global().async {
             self.playlist = self.medias
             self.playlist.shuffle()
+            self.list = List<Item>()
             for media in self.playlist {
-                if let filePath = media.filePath {
-                    let url = URL(fileURLWithPath: filePath)
-                    let item = AVPlayerItem(url: url)
-                    let listItem = MediaInfo(media: media, item: item)
-                    self.list.add(key: listItem)
-                }
+                self.list?.add(key: media)
             }
             self.isReadyToPlay = true
         }

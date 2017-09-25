@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/23/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -13,7 +12,11 @@ import CoreData
 
 class MediaListVC: CustomTableVC {
     
+    // Variables
+    
     var playlistItem: Playlist?
+    
+    // Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +37,10 @@ class MediaListVC: CustomTableVC {
         medias = playlistItem?.items?.allObjects as! [Item]
         tableView.reloadData()
     }
+
+}
+
+extension MediaListVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -53,10 +60,10 @@ class MediaListVC: CustomTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if !isSelected {
             while true {
-                if list.getCurrentKey().media.title == playlist[indexPath.item].title {
+                if list?.getCurrentKey().id == medias[indexPath.item].id {
                     break
                 }
-                list.next()
+                list?.next()
             }
             playerController.playlist = list
             playerController.context = context
@@ -97,7 +104,7 @@ class MediaListVC: CustomTableVC {
             myAlert.addAction(cancel)
             self.present(myAlert, animated: true, completion: nil)
         })
-        edit.backgroundColor = .green
+        edit.backgroundColor = UIColor(red: 33/255, green: 110/255, blue: 46/255, alpha: 1)
         let delete = UITableViewRowAction(style: .destructive, title: "Trash", handler: { action, index in
             self.medias[indexPath.item].isArchived = false
             self.playlistItem?.removeFromItems(self.medias[indexPath.item])
@@ -110,9 +117,7 @@ class MediaListVC: CustomTableVC {
             }
             tableView.reloadData()
         })
-        delete.backgroundColor = .red
+        delete.backgroundColor = UIColor(red: 139/255, green: 45/255, blue: 45/255, alpha: 1)
         return [edit, delete]
     }
-
-
 }

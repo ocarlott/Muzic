@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/20/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -12,6 +11,7 @@ import CoreData
 
 class FileCell: UITableViewCell {
     
+    // Variables
     var showIcon = true
     
     let title: UILabel = {
@@ -36,6 +36,8 @@ class FileCell: UITableViewCell {
         iv.tintColor = .white
         return iv
     }()
+    
+    // Methods
     
     func setupViews(media: Item) {
         addSubview(title)

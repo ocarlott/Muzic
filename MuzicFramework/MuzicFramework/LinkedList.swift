@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 2/17/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import Foundation
@@ -62,13 +61,4 @@ public class List<T> {
         current = tail
     }
     
-}
-
-public struct MediaInfo<T> {
-    public var media: T
-    public var playerItem: AVPlayerItem
-    public init(media: T, item: AVPlayerItem) {
-        self.media = media
-        self.playerItem = item
-    }
 }

@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/20/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -12,6 +11,8 @@ import MuzicFramework
 import CoreData
 
 class DownloadVC: CustomTableVC {
+    
+    // Variables
     
     static var shouldUpdateDownload = false
     
@@ -36,6 +37,8 @@ class DownloadVC: CustomTableVC {
         setupTable()
         updatePlaylist()
     }
+    
+    // Methods
     
     override func viewWillAppear(_ animated: Bool) {
         if DownloadVC.shouldUpdateDownload {
@@ -69,6 +72,10 @@ class DownloadVC: CustomTableVC {
             print(err)
         }
     }
+
+}
+
+extension DownloadVC {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -87,8 +94,8 @@ class DownloadVC: CustomTableVC {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isReadyToPlay {
             while true {
-                if list.getCurrentKey().media.title == playlist[indexPath.item].title { break }
-                list.next()
+                if list?.getCurrentKey().id == medias[indexPath.item].id { break }
+                list?.next()
             }
             playerController.playlist = list
             playerController.context = context
@@ -133,7 +140,7 @@ class DownloadVC: CustomTableVC {
             myAlert.addAction(cancel)
             self.present(myAlert, animated: true, completion: nil)
         })
-        edit.backgroundColor = .green
+        edit.backgroundColor = UIColor(red: 33/255, green: 110/255, blue: 46/255, alpha: 1)
         let move = UITableViewRowAction(style: .normal, title: "Move", handler: { action, index in
             let modal = PlaylistModalVC()
             modal.media = self.medias[indexPath.item]
@@ -155,7 +162,7 @@ class DownloadVC: CustomTableVC {
             modal.modalPresentationStyle = .overCurrentContext
             self.present(modal, animated: true, completion: nil)
         })
-        move.backgroundColor = .blue
+        move.backgroundColor = UIColor(red: 33/255, green: 61/255, blue: 110/255, alpha: 1)
         let delete = UITableViewRowAction(style: .destructive, title: "Trash", handler: { action, index in
             DispatchQueue.global().async {
                 do {
@@ -185,8 +192,7 @@ class DownloadVC: CustomTableVC {
                 }
             }
         })
-        delete.backgroundColor = .red
+        delete.backgroundColor = UIColor(red: 139/255, green: 45/255, blue: 45/255, alpha: 1)
         return [edit, move, delete]
     }
-
 }

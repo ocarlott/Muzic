@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/17/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import Foundation
@@ -77,10 +76,7 @@ class ApiService {
                                     videos.append(video)
                                 }
                             }
-                            print(searchId)
-                            DispatchQueue.main.async {
-                                completed(videos)
-                            }
+                            ApiService.getDetails(videos: videos, idString: searchId, completed: completed)
                         }
                     }
                 } catch let jsonError {
@@ -182,7 +178,7 @@ class ApiService {
         }).resume()
     }
     
-    static func downloadPreviewImage(urlString: String, completed: @escaping ((UIImage)->())) {
+    static func downloadPreviewImage(urlString: String, videoId: String, completed: @escaping ((UIImage, String)->())) {
         let url = URL(string: urlString)!
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
             if error != nil {
@@ -190,9 +186,44 @@ class ApiService {
             } else {
                 if let imageData = data {
                     let img = UIImage(data: imageData)
-                    completed(img!)
+                    completed(img!, videoId)
                 }
             }
         }).resume()
+    }
+    
+    static func getDetails(videos: [Media], idString: String, completed: @escaping (([Media])->())) {
+        let url = URL(string: CONTENT_DETAIL_API_URL + idString)!
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) in
+            if error != nil {
+                print(error ?? "Error with downloading content details")
+            } else {
+                var dict = [String: String]()
+                do {
+                    if let unwrappedData = data, let json = try JSONSerialization.jsonObject(with: unwrappedData, options: .mutableContainers) as? [String: AnyObject] {
+                        if let items = json["items"] as? [[String: AnyObject]] {
+                            for item in items {
+                                if let id = item["id"] as? String, let content = item["contentDetails"] as? [String: AnyObject], var duration = content["duration"] as? String {
+                                    duration = duration.replacingOccurrences(of: "PT", with: "").replacingOccurrences(of: "S", with: "").replacingOccurrences(of: "H", with: ":").replacingOccurrences(of: "M", with: ":")
+                                    dict[id] = duration
+                                }
+                            }
+                            for video in videos {
+                                video.duration = dict[video.id!]
+                            }
+                            DispatchQueue.main.async {
+                                completed(videos)
+                            }
+                        }
+                    }
+                } catch let error {
+                    print(error)
+                }
+            }
+        }).resume()
+        DispatchQueue.main.async {
+            completed(videos)
+        }
+
     }
 }

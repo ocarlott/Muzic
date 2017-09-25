@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB0EF1C91E2D9EB400BE33AD"
-               BuildableName = "Muzic.app"
-               BlueprintName = "Muzic"
-               ReferencedContainer = "container:Muzic.xcodeproj">
+               BlueprintIdentifier = "CB2CDE481E5B8424005FA558"
+               BuildableName = "MuzicFramework.framework"
+               BlueprintName = "MuzicFramework"
+               ReferencedContainer = "container:MuzicFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,30 +33,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB0EF1DD1E2D9EB400BE33AD"
-               BuildableName = "MuzicTests.xctest"
-               BlueprintName = "MuzicTests"
-               ReferencedContainer = "container:Muzic.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB0EF1E81E2D9EB400BE33AD"
-               BuildableName = "MuzicUITests.xctest"
-               BlueprintName = "MuzicUITests"
-               ReferencedContainer = "container:Muzic.xcodeproj">
+               BlueprintIdentifier = "CB2CDE511E5B8424005FA558"
+               BuildableName = "MuzicFrameworkTests.xctest"
+               BlueprintName = "MuzicFrameworkTests"
+               ReferencedContainer = "container:MuzicFramework.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB0EF1C91E2D9EB400BE33AD"
-            BuildableName = "Muzic.app"
-            BlueprintName = "Muzic"
-            ReferencedContainer = "container:Muzic.xcodeproj">
+            BlueprintIdentifier = "CB2CDE481E5B8424005FA558"
+            BuildableName = "MuzicFramework.framework"
+            BlueprintName = "MuzicFramework"
+            ReferencedContainer = "container:MuzicFramework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -73,23 +63,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB0EF1C91E2D9EB400BE33AD"
-            BuildableName = "Muzic.app"
-            BlueprintName = "Muzic"
-            ReferencedContainer = "container:Muzic.xcodeproj">
+            BlueprintIdentifier = "CB2CDE481E5B8424005FA558"
+            BuildableName = "MuzicFramework.framework"
+            BlueprintName = "MuzicFramework"
+            ReferencedContainer = "container:MuzicFramework.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -99,16 +81,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB0EF1C91E2D9EB400BE33AD"
-            BuildableName = "Muzic.app"
-            BlueprintName = "Muzic"
-            ReferencedContainer = "container:Muzic.xcodeproj">
+            BlueprintIdentifier = "CB2CDE481E5B8424005FA558"
+            BuildableName = "MuzicFramework.framework"
+            BlueprintName = "MuzicFramework"
+            ReferencedContainer = "container:MuzicFramework.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

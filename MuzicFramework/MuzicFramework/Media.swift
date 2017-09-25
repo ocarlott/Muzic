@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/18/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import Foundation
@@ -37,9 +36,12 @@ public class Media: NSObject, NSCoding {
             self.playerImageUrl = playerImageUrl
         }
         
+        if let duration = aDecoder.decodeObject(forKey: "duration") as! String? {
+            self.duration = duration
+        }
+        
         self.isVideo = aDecoder.decodeBool(forKey: "isVideo")
         
-        self.duration = aDecoder.decodeInteger(forKey: "duration")
     }
     
     public func encode(with aCoder: NSCoder) {
@@ -51,7 +53,7 @@ public class Media: NSObject, NSCoding {
         aCoder.encode(self.imgPath ?? "", forKey: "imgPath")
         aCoder.encode(self.playerImageUrl ?? "", forKey: "playerImgUrl")
         aCoder.encode(self.isVideo ?? false, forKey: "isVideo")
-        aCoder.encode(self.duration ?? 0, forKey: "duration")
+        aCoder.encode(self.duration ?? "", forKey: "duration")
     }
     
     public var title: String?
@@ -62,5 +64,5 @@ public class Media: NSObject, NSCoding {
     public var filePath: String?
     public var imgPath: String?
     public var playerImageUrl: String?
-    public var duration: Int?
+    public var duration: String?
 }

@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/25/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -15,23 +14,23 @@ import CoreData
 
 class PlayerController: UIViewController {
     
+    // Variables
+    
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
 
-    let playImage = UIImage(named: "play")
+    let playImage = UIImage(named: "play")?.withRenderingMode(.alwaysTemplate)
     
-    let pauseImage = UIImage(named: "pause")
+    let pauseImage = UIImage(named: "pause")?.withRenderingMode(.alwaysTemplate)
     
-    let shuffleType = UIImage(named: "shuffle")
+    let shuffleType = UIImage(named: "shuffle")?.withRenderingMode(.alwaysTemplate)
     
-    let repeatType = UIImage(named: "repeat")
-    
-    var oldTitle: String?
+    let repeatType = UIImage(named: "repeat")?.withRenderingMode(.alwaysTemplate)
     
     lazy var downBtn: UIButton = {
         let btn = UIButton()
-        btn.setImage(UIImage(named: "down2"), for: .normal)
+        btn.setImage(UIImage(named: "down2")?.withRenderingMode(.alwaysTemplate), for: .normal)
         btn.addTarget(self, action: #selector(hide), for: .touchUpInside)
         btn.tintColor = .white
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +41,7 @@ class PlayerController: UIViewController {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(togglePlay), for: .touchUpInside)
         btn.setImage(self.pauseImage, for: .normal)
+        btn.tintColor = .white
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -49,7 +49,8 @@ class PlayerController: UIViewController {
     lazy var nextBtn: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(nextFile), for: .touchUpInside)
-        btn.setImage(UIImage(named: "next"), for: .normal)
+        btn.setImage(UIImage(named: "next")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = .white
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -57,7 +58,8 @@ class PlayerController: UIViewController {
     lazy var prevBtn: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(prevFile), for: .touchUpInside)
-        btn.setImage(UIImage(named: "previous"), for: .normal)
+        btn.setImage(UIImage(named: "previous")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = .white
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -65,6 +67,7 @@ class PlayerController: UIViewController {
     lazy var typeBtn: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(toggleTypePlay), for: .touchUpInside)
+        btn.tintColor = .white
         btn.setImage(self.shuffleType, for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
@@ -73,7 +76,8 @@ class PlayerController: UIViewController {
     lazy var zoomBtn: UIButton = {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(toggleZoom), for: .touchUpInside)
-        btn.setImage(UIImage(named: "zoom"), for: .normal)
+        btn.setImage(UIImage(named: "zoom")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = .white
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -82,7 +86,7 @@ class PlayerController: UIViewController {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(addTimer), for: .touchUpInside)
         btn.setImage(UIImage(named: "timer")?.withRenderingMode(.alwaysTemplate), for: .normal)
-        btn.tintColor = .black
+        btn.tintColor = .white
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -91,6 +95,7 @@ class PlayerController: UIViewController {
         let btn = UIButton()
         btn.addTarget(self, action: #selector(toggleFav), for: .touchUpInside)
         btn.setImage(UIImage(named: "heart")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.tintColor = .white
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
@@ -105,6 +110,7 @@ class PlayerController: UIViewController {
     let timeLeft: UILabel = {
         let lb = UILabel()
         lb.text = "--:--"
+        lb.textColor = .white
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.font = UIFont.systemFont(ofSize: 11)
         return lb
@@ -113,6 +119,7 @@ class PlayerController: UIViewController {
     let timeElapsed: UILabel = {
         let lb = UILabel()
         lb.text = "--:--"
+        lb.textColor = .white
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.font = UIFont.systemFont(ofSize: 11)
         return lb
@@ -121,6 +128,7 @@ class PlayerController: UIViewController {
     let label: UILabel = {
         let lb = UILabel()
         lb.text = " "
+        lb.textColor = .white
         lb.translatesAutoresizingMaskIntoConstraints = false
         lb.numberOfLines = 3
         lb.textAlignment = .center
@@ -132,8 +140,10 @@ class PlayerController: UIViewController {
         slider.maximumTrackTintColor = .gray
         slider.minimumTrackTintColor = .black
         slider.addTarget(self, action: #selector(slide), for: .valueChanged)
-        let image = UIImage(named: "pig")
+        let image = UIImage(named: "thumb")
         slider.setThumbImage(image!, for: .normal)
+        slider.setThumbImage(UIImage(named: "thumbpressed")!, for: .highlighted)
+        slider.minimumTrackTintColor = .white
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
     }()
@@ -161,9 +171,12 @@ class PlayerController: UIViewController {
     let toolbar = UIToolbar()
     
     var player = AVPlayer()
+    var currentItem: AVPlayerItem?
     var duration: Int!
     var isPlaying = false
-    var playlist: List<MediaInfo<Item>>?
+    var forcePlay = false
+    var lastId: String?
+    var playlist: List<Item>?
     var observer: Any!
     var playerLayer: AVPlayerLayer!
     let defaults = UserDefaults(suiteName: "group.appdev")
@@ -172,6 +185,10 @@ class PlayerController: UIViewController {
     var timer: Date!
     let calendar = Calendar.current
     var context: NSManagedObjectContext?
+    
+}
+
+extension PlayerController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,9 +210,9 @@ class PlayerController: UIViewController {
         view.addConstraintsWithFormatString(format: "V:|-40-[v0(30)]", views: downBtn)
         
         playBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        playBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -35).isActive = true
-        playBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        playBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        playBtn.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -80).isActive = true
+        playBtn.widthAnchor.constraint(equalToConstant: 90).isActive = true
+        playBtn.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
         nextBtn.centerYAnchor.constraint(equalTo: playBtn.centerYAnchor).isActive = true
         nextBtn.leftAnchor.constraint(equalTo: playBtn.rightAnchor, constant: 50).isActive = true
@@ -261,7 +278,7 @@ class PlayerController: UIViewController {
         view.addConstraintsWithFormatString(format: "H:|[v0]|", views: toolbar)
         view.addConstraintsWithFormatString(format: "V:[v0(35)]-220-|", views: toolbar)
         toolbar.isHidden = true
-        view.backgroundColor = .white
+        view.backgroundColor = .black
         
         if (defaults?.bool(forKey: "isRepeat"))! {
             typeBtn.setImage(self.repeatType, for: .normal)
@@ -281,14 +298,85 @@ class PlayerController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if playlist?.getCurrentKey().media.title != oldTitle {
-            playlist?.getCurrentKey().playerItem.seek(to: kCMTimeZero)
+        addObserverForTracking()
+        if playlist?.getCurrentKey().id != lastId {
             loadFiles()
         }
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        loadViews()
+        if (playlist?.getCurrentKey().id != lastId) {
+            loadViews()
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        player.removeTimeObserver(observer!)
+        observer = nil
+        defaults?.set(isRepeat, forKey: "isRepeat")
+    }
+    
+}
+
+extension PlayerController {
+    
+    // Methods
+    
+    func loadFiles() {
+        currentItem = AVPlayerItem(url: URL(fileURLWithPath: (playlist?.getCurrentKey().filePath)!))
+        currentItem?.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
+        player.replaceCurrentItem(with: currentItem)
+    }
+    
+    func loadViews() {
+        if (playlist?.getCurrentKey().isVideo)! {
+            imageView.alpha = 0
+            playerLayer = AVPlayerLayer(player: player)
+            playerLayer.frame = CGRect(x: 0, y: 0, width: playerFrame.frame.width, height: playerFrame.frame.height)
+            playerFrame.layer.addSublayer(playerLayer)
+        } else {
+            imageView.alpha = 1
+            if playerLayer != nil {
+                playerLayer.isHidden = true
+            }
+            imageView.image = UIImage(contentsOfFile: (playlist?.getCurrentKey().imgPath)!)
+        }
+        if (playlist?.getCurrentKey().isFavorited)! {
+            favBtn.tintColor = .red
+        } else {
+            favBtn.tintColor = .white
+        }
+        label.text = playlist?.getCurrentKey().title
+        playBtn.setImage(pauseImage, for: .normal)
+        lastId = playlist?.getCurrentKey().id
+    }
+    
+    @objc func play() {
+        do {
+            UIApplication.shared.beginReceivingRemoteControlEvents()
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            try AVAudioSession.sharedInstance().setActive(true)
+        }
+        catch let error {
+            print(error)
+        }
+        addObserverForTracking()
+        let infoCenter = MPNowPlayingInfoCenter.default()
+        let image = UIImage(contentsOfFile: (playlist?.getCurrentKey().imgPath)!)!
+        let artwork = MPMediaItemArtwork.init(boundsSize: image.size, requestHandler: { (size) -> UIImage in
+            return image
+        })
+        let duration = NSNumber(value: Int(CMTimeGetSeconds((self.player.currentItem?.asset.duration)!)))
+        infoCenter.nowPlayingInfo = [MPMediaItemPropertyTitle: (playlist?.getCurrentKey().title)!,
+                                     MPMediaItemPropertyArtwork: artwork,
+                                     MPMediaItemPropertyPlaybackDuration: duration,
+                                     MPNowPlayingInfoPropertyElapsedPlaybackTime: NSNumber(value: Int(CMTimeGetSeconds((currentItem?.currentTime())!))),
+                                     MPNowPlayingInfoPropertyPlaybackRate: NSNumber(value: 1.0)]
+        player.play()
+        isPlaying = true
+    }
+    
+    func addObserverForTracking() {
         if observer == nil {
             let interval = CMTime(value: 1, timescale: 2)
             observer = player.addPeriodicTimeObserver(forInterval: interval, queue: DispatchQueue.main, using: { (progressTime) in
@@ -298,91 +386,43 @@ class PlayerController: UIViewController {
                     self.slider.setValue(Float(seconds)/Float(self.duration), animated: true)
                     self.timeElapsed.text = "\(String(format: "%02d", seconds/60)):\(String(format: "%02d", seconds % 60))"
                     self.timeLeft.text = "\(String(format: "%02d", (self.duration - seconds)/60)):\(String(format: "%02d", (self.duration - seconds)%60))"
-                    if seconds == self.duration {
-                        if self.isRepeat {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                                self.slider.setValue(0, animated: true)
-                                self.playlist?.getCurrentKey().playerItem.seek(to: kCMTimeZero)
-                                self.play()
-                            })
-                        } else {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
-                                self.nextFile()
-                            })
-                        }
+                    if seconds == self.duration && seconds != 0 && self.isPlaying {
+                        self.isPlaying = false
+                        self.nextAction()
                     }
                 }
             })
         }
     }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        player.removeTimeObserver(observer!)
-        observer = nil
-        defaults?.set(isRepeat, forKey: "isRepeat")
-    }
     
-    func loadFiles() {
-        playlist?.getCurrentKey().playerItem.addObserver(self, forKeyPath: #keyPath(AVPlayerItem.status), options: [.old, .new], context: nil)
-        player.replaceCurrentItem(with: playlist?.getCurrentKey().playerItem)
-    }
-    
-    func loadViews() {
-        if (playlist?.getCurrentKey().media.title != oldTitle) {
-            if (playlist?.getCurrentKey().media.isVideo)! {
-                imageView.alpha = 0
-                playerLayer = AVPlayerLayer(player: player)
-                playerLayer.frame = CGRect(x: 0, y: 0, width: playerFrame.frame.width, height: playerFrame.frame.height)
-                playerFrame.layer.addSublayer(playerLayer)
-            } else {
-                imageView.alpha = 1
-                if playerLayer != nil {
-                    playerLayer.isHidden = true
+    func nextAction() {
+        self.observer = nil
+        if self.isRepeat {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                if self.isRepeat {
+                    self.slider.setValue(0, animated: true)
+                    self.play()
                 }
-                imageView.image = UIImage(contentsOfFile: (playlist?.getCurrentKey().media.imgPath)!)
-            }
-            if (playlist?.getCurrentKey().media.isFavorited)! {
-                favBtn.tintColor = .red
-            } else {
-                favBtn.tintColor = .black
-            }
-            label.text = playlist?.getCurrentKey().media.title
-            playBtn.setImage(pauseImage, for: .normal)
-            oldTitle = playlist?.getCurrentKey().media.title
+            })
+        } else {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+                if !self.isRepeat {
+                    self.nextFile()
+                }
+            })
         }
-    }
-
-    func play() {
-        do {
-            UIApplication.shared.beginReceivingRemoteControlEvents()
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
-            try AVAudioSession.sharedInstance().setActive(true)
-        }
-        catch let error {
-            print(error)
-        }
-        let infoCenter = MPNowPlayingInfoCenter.default()
-        let artwork = MPMediaItemArtwork(image: UIImage(contentsOfFile: (playlist?.getCurrentKey().media.imgPath)!)!)
-        let duration = NSNumber(value: Int(CMTimeGetSeconds((playlist?.getCurrentKey().playerItem.duration)!)))
-        infoCenter.nowPlayingInfo = [MPMediaItemPropertyTitle: (playlist?.getCurrentKey().media.title)!,
-                                     MPMediaItemPropertyArtwork: artwork,
-                                     MPMediaItemPropertyPlaybackDuration: duration,
-                                     MPNowPlayingInfoPropertyElapsedPlaybackTime: NSNumber(value: Int(CMTimeGetSeconds((playlist?.getCurrentKey().playerItem.currentTime())!))),
-                                     MPNowPlayingInfoPropertyPlaybackRate: NSNumber(value: 1.0)]
-        player.play()
-        isPlaying = true
     }
     
-    func pause() {
+    @objc func pause() {
         player.pause()
         isPlaying = false
     }
     
-    func hide() {
+    @objc func hide() {
         dismiss(animated: true, completion: nil)
     }
     
-    func togglePlay() {
+    @objc func togglePlay() {
         if isPlaying {
             player.pause()
             playBtn.setImage(playImage, for: .normal)
@@ -393,23 +433,21 @@ class PlayerController: UIViewController {
         isPlaying = !isPlaying
     }
     
-    func nextFile() {
-        playlist?.getCurrentKey().playerItem.seek(to: kCMTimeZero)
+    @objc func nextFile() {
         playlist?.next()
-        player.replaceCurrentItem(with: playlist?.getCurrentKey().playerItem)
+        loadFiles()
         loadViews()
         play()
     }
     
-    func prevFile() {
-        playlist?.getCurrentKey().playerItem.seek(to: kCMTimeZero)
+    @objc func prevFile() {
         playlist?.prev()
-        player.replaceCurrentItem(with: playlist?.getCurrentKey().playerItem)
+        loadFiles()
         loadViews()
         play()
     }
     
-    func toggleTypePlay() {
+    @objc func toggleTypePlay() {
         if isRepeat {
             typeBtn.setImage(self.shuffleType, for: .normal)
         } else {
@@ -418,9 +456,9 @@ class PlayerController: UIViewController {
         isRepeat = !isRepeat
     }
     
-    func toggleZoom() {
+    @objc func toggleZoom() {
         let avPlayerVC = CustomAVPlayerVC()
-        let url = URL(fileURLWithPath: (playlist?.getCurrentKey().media.filePath)!)
+        let url = URL(fileURLWithPath: (playlist?.getCurrentKey().filePath)!)
         let playerFull = AVPlayer(url: url)
         player.seek(to: CMTime(seconds: 0, preferredTimescale: 1))
         playBtn.setImage(playImage, for: .normal)
@@ -432,18 +470,18 @@ class PlayerController: UIViewController {
         })
     }
     
-    func slide() {
+    @objc func slide() {
         let value = Float64(slider.value) * Float64(duration)
         let seekTime = CMTime(value: Int64(value), timescale: 1)
         player.seek(to: seekTime)
     }
     
-    func addTimer() {
+    @objc func addTimer() {
         timePicker.isHidden = false
         toolbar.isHidden = false
     }
     
-    func setTimer() {
+    @objc func setTimer() {
         timePicker.isHidden = true
         toolbar.isHidden = true
         timerBtn.tintColor = .blue
@@ -465,7 +503,7 @@ class PlayerController: UIViewController {
         })
     }
     
-    func cancelTimer() {
+    @objc func cancelTimer() {
         timePicker.isHidden = true
         toolbar.isHidden = true
     }
@@ -480,27 +518,25 @@ class PlayerController: UIViewController {
             }
             
             switch status {
-                case .readyToPlay:
-                    play()
-                    playlist?.getCurrentKey().playerItem.removeObserver(self, forKeyPath: keyPath!)
+            case .readyToPlay:
+                play()
+                currentItem?.removeObserver(self, forKeyPath: keyPath!)
                 break
-                case .failed:
-                
+            case .failed:
                 break
-                case .unknown:
-                
+            case .unknown:
                 break
             }
         }
     }
     
-    func toggleFav() {
-        if (playlist?.getCurrentKey().media.isFavorited)! {
-            favBtn.tintColor = .black
+    @objc func toggleFav() {
+        if (playlist?.getCurrentKey().isFavorited)! {
+            favBtn.tintColor = .white
         } else {
             favBtn.tintColor = .red
         }
-        playlist?.getCurrentKey().media.isFavorited = !(playlist?.getCurrentKey().media.isFavorited)!
+        playlist?.getCurrentKey().isFavorited = !(playlist?.getCurrentKey().isFavorited)!
         do {
             try context?.save()
         } catch {

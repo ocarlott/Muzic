@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 2/20/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -12,8 +11,11 @@ import CoreData
 
 class FavoriteVC: DownloadVC {
     
+    // Variables
+    
     static var shouldUpdateFavorite = false
     
+    // Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Favorites"
@@ -54,7 +56,7 @@ class FavoriteVC: DownloadVC {
                 }
             }
         })
-        delete.backgroundColor = .red
+        delete.backgroundColor = UIColor(red: 139/255, green: 45/255, blue: 45/255, alpha: 1)
         return [delete]
     }
 

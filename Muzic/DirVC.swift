@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/23/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -12,6 +11,8 @@ import CoreData
 private let cellId = "PlaylistCell"
 
 class DirVC: CustomTableVC {
+    
+    // Variables
     
     var playlistItems = [Playlist]()
     
@@ -22,6 +23,8 @@ class DirVC: CustomTableVC {
         return vc
     }()
 
+    // Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         searchPlaylists()
@@ -29,14 +32,6 @@ class DirVC: CustomTableVC {
         addBtn.tintColor = .black
         navigationItem.rightBarButtonItem = addBtn
         tableView.register(PlaylistCell.self, forCellReuseIdentifier: cellId)
-    }
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return playlistItems.count
     }
 
     func searchPlaylists() {
@@ -52,7 +47,7 @@ class DirVC: CustomTableVC {
         }
     }
     
-    func addPlaylist() {
+    @objc func addPlaylist() {
         var inputTF: UITextField?
         let myTextPopup = UIAlertController(title: "Add Playlist", message: "Enter Playlist Name", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Add", style: .default, handler: { (action) in
@@ -98,7 +93,18 @@ class DirVC: CustomTableVC {
         })
         navigationController?.present(myTextPopup, animated: true, completion: nil)
     }
+}
 
+extension DirVC {
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return playlistItems.count
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! PlaylistCell
         cell.playlistItem = playlistItems[indexPath.item]
@@ -118,5 +124,4 @@ class DirVC: CustomTableVC {
         mediaListVC.playerController = playerController
         navigationController?.pushViewController(mediaListVC, animated: true)
     }
-
 }

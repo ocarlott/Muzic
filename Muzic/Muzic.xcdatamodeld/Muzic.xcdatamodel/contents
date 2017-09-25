@@ -5,7 +5,7 @@
     </entity>
     <entity name="Item" representedClassName="Item" syncable="YES" codeGenerationType="class">
         <attribute name="channel" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="filePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imgPath" optional="YES" attributeType="String" syncable="YES"/>
@@ -22,8 +22,8 @@
         <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Item" inverseName="playlists" inverseEntity="Item" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Item" positionX="-63" positionY="-18" width="128" height="208"/>
         <element name="Download" positionX="-524" positionY="45" width="128" height="58"/>
+        <element name="Item" positionX="-63" positionY="-18" width="128" height="210"/>
         <element name="Playlist" positionX="-756" positionY="135" width="128" height="88"/>
     </elements>
 </model>

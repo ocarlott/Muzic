@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/30/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -11,6 +10,8 @@ import MuzicFramework
 import CoreData
 
 class PlaylistModalVC: UITableViewController {
+    
+    // Variables
     
     let cellId = "cellId"
     
@@ -31,6 +32,8 @@ class PlaylistModalVC: UITableViewController {
         return btn
     }()
 
+    // Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 70, left: 0, bottom: 0, right: 0)
@@ -38,19 +41,23 @@ class PlaylistModalVC: UITableViewController {
         cancelBtn.frame = CGRect(x: 10, y: -40, width: 60, height: 20)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
     }
+    
+    @objc func cancel() {
+        dismiss(animated: true, completion: nil)
+    }
 
+}
+
+extension PlaylistModalVC {
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return playlists.count
     }
     
-    func cancel() {
-        dismiss(animated: true, completion: nil)
-    }
-
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         cell.textLabel?.text = playlists[indexPath.item]
@@ -74,5 +81,4 @@ class PlaylistModalVC: UITableViewController {
         }
         dismiss(animated: true, completion: nil)
     }
-
 }

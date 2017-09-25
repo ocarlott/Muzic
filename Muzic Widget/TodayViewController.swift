@@ -3,13 +3,14 @@
 //  Muzic Widget
 //
 //  Created by Michael Ngo on 2/19/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
 import NotificationCenter
 import MuzicFramework
 import CoreData
+import AVFoundation
+import MediaPlayer
 
 class TodayViewController: UIViewController, NCWidgetProviding, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
@@ -27,6 +28,8 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     
     var context: NSManagedObjectContext?
     
+    var heightConstraint: NSLayoutConstraint?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let dataController = DataController()
@@ -34,25 +37,12 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.register(FavoriteCell.self, forCellWithReuseIdentifier: cellId)
-        do {
-            for path in try FileManager.default.contentsOfDirectory(atPath: DOCUMENT_DIR_URL.path) {
-                print(path)
-            }
-        } catch let err {
-            print(err)
-        }
+        heightConstraint = view.heightAnchor.constraint(equalToConstant: 110)
+        heightConstraint?.isActive = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        searchFiles()
-        if medias.count > 3 {
-            self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
-            let rows = Int(medias.count / 3)
-            self.maxHeight = 20 + 90 * rows + 15 * (rows - 1)
-        } else {
-            self.extensionContext?.widgetLargestAvailableDisplayMode = .compact
-        }
-        collectionView.reloadData()
+        
     }
     
     func searchFiles() {
@@ -69,16 +59,18 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-        
+        searchFiles()
+        if medias.count > 3 {
+            self.extensionContext?.widgetLargestAvailableDisplayMode = .expanded
+            let rows = Int(medias.count / 3)
+            self.maxHeight = 20 + 90 * rows + 15 * (rows - 1)
+        } else {
+            self.extensionContext?.widgetLargestAvailableDisplayMode = .compact
+        }
+        collectionView.reloadData()
         completionHandler(NCUpdateResult.newData)
     }
     
@@ -91,11 +83,15 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     }
     
     func widgetActiveDisplayModeDidChange(_ activeDisplayMode: NCWidgetDisplayMode, withMaximumSize maxSize: CGSize) {
+        view.removeConstraint(heightConstraint!)
         if activeDisplayMode == .compact {
             self.preferredContentSize.height = 110
+            heightConstraint = view.heightAnchor.constraint(equalToConstant: 110)
         } else {
             self.preferredContentSize.height = CGFloat(maxHeight)
+            heightConstraint = view.heightAnchor.constraint(equalToConstant: CGFloat(maxHeight))
         }
+        heightConstraint?.isActive = true
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -119,4 +115,11 @@ class TodayViewController: UIViewController, NCWidgetProviding, UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = medias[indexPath.item]
+        let url = URL(string: "Muzic://" + item.id!)
+        extensionContext?.open( url!, completionHandler: nil)
+    }
+    
 }

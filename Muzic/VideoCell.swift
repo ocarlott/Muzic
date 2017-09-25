@@ -3,7 +3,6 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/18/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
@@ -11,12 +10,17 @@ import MuzicFramework
 
 class VideoCell: UICollectionViewCell {
     
+    // Variables
+    
     var video: Media?
     var searchVC: SearchViewController?
     
-    let imageView: UIImageView = {
+    lazy var imageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
+        iv.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(showWebView))
+        iv.addGestureRecognizer(gesture)
         return iv
     }()
     
@@ -35,6 +39,18 @@ class VideoCell: UICollectionViewCell {
         return btn
     }()
     
+    let time: UILabel = {
+        let lb = UILabel()
+        lb.font = UIFont.systemFont(ofSize: 9)
+        lb.textColor = .white
+        lb.layer.cornerRadius = 3
+        lb.layer.masksToBounds = true
+        lb.textAlignment = .center
+        lb.backgroundColor = UIColor(white: 0, alpha: 0.8)
+        lb.layer.borderColor = UIColor.white.cgColor
+        return lb
+    }()
+    
     let channel: UILabel = {
         let lb = UILabel()
         lb.text = "Test channel"
@@ -42,6 +58,8 @@ class VideoCell: UICollectionViewCell {
         lb.numberOfLines = 2
         return lb
     }()
+    
+    // Methods
     
     func setup(video: Media) {
         self.video = video
@@ -52,10 +70,17 @@ class VideoCell: UICollectionViewCell {
         title.text = video.title
         channel.text = video.channel
         backgroundColor = .white
+        imageView.addSubview(time)
+        time.text = video.duration
+        if (searchVC?.ids.contains(video.id!))! {
+            downloadBtn.isEnabled = false
+        }
         if let image = video.imageUrl {
-            ApiService.downloadPreviewImage(urlString: image, completed: { (img) in
+            ApiService.downloadPreviewImage(urlString: image, videoId: video.id!, completed: { (img, id) in
                 DispatchQueue.main.async {
-                    self.imageView.image = img
+                    if self.video?.id == id {
+                        self.imageView.image = img
+                    }
                 }
             })
         }
@@ -66,9 +91,15 @@ class VideoCell: UICollectionViewCell {
         addConstraintsWithFormatString(format: "V:|[v0(75)]", views: title)
         addConstraintsWithFormatString(format: "V:[v0(40)]|", views: channel)
         addConstraintsWithFormatString(format: "H:|-202-[v0]-40-|", views: channel)
+        imageView.addConstraintsWithFormatString(format: "H:[v0(32)]-5-|", views: time)
+        imageView.addConstraintsWithFormatString(format: "V:[v0(20)]-5-|", views: time)
     }
     
-    func askToDownload() {
+    @objc func showWebView() {
+        searchVC?.showWebView(id: (video?.id)!)
+    }
+    
+    @objc func askToDownload() {
         if let v = self.video {
             downloadBtn.isEnabled = false
             let myActionSheet = UIAlertController(title: "Download File Type", message: "Video or Audio only?", preferredStyle: .actionSheet)
@@ -79,6 +110,7 @@ class VideoCell: UICollectionViewCell {
                         self.searchVC?.downloadVC?.updatePlaylist()
                     }
                     self.downloadNotification(title: v.title! + ".mp4")
+                    self.downloadBtn.isEnabled = true
                 })
             })
             let audioAction = UIAlertAction(title: "Audio Only", style: .default, handler: { (action) in
@@ -88,6 +120,7 @@ class VideoCell: UICollectionViewCell {
                         self.searchVC?.downloadVC?.updatePlaylist()
                     }
                     self.downloadNotification(title: v.title! + ".mp3")
+                    self.downloadBtn.isEnabled = true
                 })
             })
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)

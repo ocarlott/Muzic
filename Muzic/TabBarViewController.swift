@@ -3,12 +3,13 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/17/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    
+    var playerController: PlayerController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,7 +18,7 @@ class TabBarViewController: UITabBarController {
         tabBar.tintColor = .white
         tabBar.clipsToBounds = true
         toolbarItems = []
-        let playerController = PlayerController()
+        playerController = PlayerController()
         let layout = UICollectionViewFlowLayout()
         let searchController = SearchViewController(collectionViewLayout: layout)
         searchController.playerController = playerController
@@ -25,7 +26,6 @@ class TabBarViewController: UITabBarController {
         searchController.tabBarItem.title = "Search"
         searchController.tabBarItem.image = UIImage(named: "search")
         let musicDirVC = DirVC()
-//        musicDirVC.workingDir = MUSIC_DIR_URL
         musicDirVC.isVideoType = false
         musicDirVC.playerController = playerController
         musicDirVC.navigationItem.title = "Music"
@@ -33,7 +33,6 @@ class TabBarViewController: UITabBarController {
         musicController.tabBarItem.title = "Music"
         musicController.tabBarItem.image = UIImage(named: "music")
         let videoDirVC = DirVC()
-//        videoDirVC.workingDir = VIDEO_DIR_URL
         videoDirVC.isVideoType = true
         videoDirVC.playerController = playerController
         videoDirVC.navigationItem.title = "Video"
@@ -54,23 +53,5 @@ class TabBarViewController: UITabBarController {
         favoriteNavigationController.tabBarItem.title = "Favorites"
         favoriteNavigationController.tabBarItem.image = UIImage(named: "heart")
         viewControllers = [searchController, musicController, videoController, favoriteNavigationController, downloadNavigationController]
-        // Do any additional setup after loading the view.
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

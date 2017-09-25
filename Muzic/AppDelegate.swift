@@ -3,12 +3,12 @@
 //  Muzic
 //
 //  Created by Michael Ngo on 1/16/17.
-//  Copyright © 2017 MIV Solution. All rights reserved.
 //
 
 import UIKit
 import MuzicFramework
 import CoreData
+import AVFoundation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,12 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     var context: NSManagedObjectContext?
+    
+    var tabController: TabBarViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
-        let tabController = TabBarViewController()
+        tabController = TabBarViewController()
         window?.rootViewController = tabController
         UIApplication.shared.statusBarStyle = .lightContent
         createFolder()
@@ -55,6 +57,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } catch {
             print("Terminate error")
         }
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        let mediaId = url.absoluteString.components(separatedBy: "//")[1]
+        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "isFavorited == %@", NSNumber(booleanLiteral: true))
+        do {
+            if let results = try context?.fetch(fetchRequest) {
+                let list = List<Item>()
+                for result in results {
+                    list.add(key: result)
+                }
+                while true {
+                    if list.getCurrentKey().id == mediaId { break }
+                    list.next()
+                }
+                tabController?.playerController?.playlist = list
+                tabController?.playerController?.context = context
+                tabController?.present((tabController?.playerController)!, animated: true, completion: nil)
+            }
+        } catch {
+            print("Cannot open from widget")
+        }
+        return true
     }
 
     func createFolder() {
